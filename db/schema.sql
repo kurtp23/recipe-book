@@ -5,7 +5,8 @@ USE recipe_book_db;
 
 CREATE TABLE users (
 id INT NOT NULL AUTO_INCREMENT,
-username VARCHAR(80)
+username VARCHAR(80),
+PRIMARY KEY (id)
 )
 
 CREATE TABLE recipes (

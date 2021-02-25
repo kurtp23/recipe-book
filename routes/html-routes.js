@@ -1,6 +1,10 @@
-var path = require("path");
+const express = require("express");
+const router = express.Router();
 
-module.exports = (app) => {
-  app.get("/view", (req, res) => res.render(path.join(__dirname, "../models/views/recipes.html")));
-  app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../public/html/menu.html")));
-};
+router.get("/view", (req, res) => res.render("recipes"));
+router.get("/", (req, res) => {
+  console.log("hello");
+  res.render("menu", {});
+});
+
+module.exports = router;

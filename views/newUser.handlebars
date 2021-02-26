@@ -9,14 +9,18 @@
   <div class="card-content center-align">
     <div id="instDiv">
       <div class="input-field col s6">
-        <input value="User1" id="first_name2" type="text" class="validate" />
+        <input value="User1" id="newUser" type="text" class="validate" />
         <label class="active">New User name</label>
       </div>
+      <div class="input-field col s6">
+        <input value="password" id="newPassword" type="password" class="validate" />
+        <label class="active">New Password</label>
+      </div>
       <span class="card-title activator grey-text text-darken-4"> </span>
-      <a class="waves-effect waves-light btn-large blue">Add New User</a>
-      <p><a href="#">Login</a></p>
+      <a id="addUser" class="waves-effect waves-light btn-large blue">Add New User</a>
+      <p><a href="/login">Login</a></p>
     </div>
   </div>
 
-  <script src="" async defer></script>
+  <script src="/js/signup.js" async defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

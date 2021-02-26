@@ -1,8 +1,9 @@
-var express = require("express");
+const express = require("express");
+const db = require("./models");
 
-var PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-var app = express();
+const app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
@@ -12,16 +13,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Set Handlebars.
-var exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-var routes = require("./routes/html-routes.js");
+var routesHtml = require("./routes/html-routes.js");
+var routesApi = require("./routes/api-routes.js");
+app.use(routesHtml);
+app.use(routesApi);
 
-app.use(routes);
-
-app.listen(PORT, function () {
-  console.log("App now listening at localhost:" + PORT);
+// Can pass argument === true will drop table for testing purposes
+db.sequelize.sync().then(function () {
+  app.listen(PORT, function () {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
 });

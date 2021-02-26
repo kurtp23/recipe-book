@@ -9,24 +9,48 @@
   <span class="card-title activator grey-text text-darken-4"> </span>
   <div id="instDiv">
     <div class="input-field col s6">
-      <input value="Soup" id="first_name2" type="text" class="validate" />
+      <input value="Soup" id="recipe-name" type="text" class="validate" />
       <label class="active">Recipe Name</label>
+      <a id="addName" class="waves-effect waves-light btn-large blue">Add Recipe name</a>
     </div>
-    <div class="input-field col s6">
-      <input value="Egg" id="ingredient" type="text" class="validate" />
-      <label class="active">ingredients</label>
+    <div class="row">
+      <div class="input-field col s6">
+        <input value="Egg" id="ingredient" type="text" class="validate" />
+        <label class="active">ingredients</label>
+        <a id="addIngredient" class="waves-effect waves-light btn-large blue">Add Ingredient</a>
+      </div>
+      <div class="input-field col s6">
+        <input value="Instruction" id="instruction" type="text" class="validate" />
+        <label class="active">Instruction</label>
+        <a id="addInstruction" class="waves-effect waves-light btn-large blue">Add Instruction</a>
+      </div>
+
+
+
     </div>
-    <a id="ingredient" class="waves-effect waves-light btn-large blue">Add Ingredient</a>
   </div>
-  <br />
+  <div class="row">
+    <h3 id="recipeName"></h3>
+    <div class="col">
+      <ul id="listIng">
+        <h3>Ingredients</h3>
+      </ul>
+    </div>
+    <div class="col">
+      <ul id="listInst">
+        <h3>Instructions</h3>
+      </ul>
+    </div>
+
+
+  </div>
+
+
 </div>
+
 <div class="card-content center-align">
-  <a id="instruction" class="waves-effect waves-light btn-large blue">Add Instruction</a>
-</div>
-<br />
-<div class="card-content center-align">
-  <a id="Save" class="waves-effect waves-light btn-large blue">Save Recipe</a>
-  <p><a href="#">Menu</a></p>
+  <a id="save" class="waves-effect waves-light btn-large blue">Save Recipe</a>
+  <p><a href="/">Menu</a></p>
 </div>
 <!-- </div> -->
 

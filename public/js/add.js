@@ -3,44 +3,54 @@ const instDiv = document.getElementById("instDiv");
 const form = document.getElementById("card-content");
 const save = document.getElementById("save");
 const addIng = document.getElementById("addIngredient");
+const addInst = document.getElementById("addInstruction");
 const rIng = document.querySelector("#ingredient");
 const rName = document.querySelector("#recipe-name");
-const rInst = document.querySelector(".instructions");
+const rInst = document.querySelector("#instruction");
+const listIng = document.getElementById("listIng");
+const listInst = document.getElementById("listInst");
+const addName = document.getElementById("addName");
+const recName = document.getElementById("recipeName");
 const allIng = [];
+const allInst = [];
 
-instruction.addEventListener("click", () => {
-  const div = document.createElement("div");
-  const inp = document.createElement("input");
-  const lab = document.createElement("label");
-
-  inp.setAttribute("class", "instructions");
-  inp.setAttribute("type", "text");
-  inp.setAttribute("value", "New Instruction");
-
-  lab.setAttribute("class", "active");
-
-  lab.textContent = "instruction";
-
-  div.appendChild(inp);
-  div.appendChild(lab);
-
-  div.setAttribute("class", "input-field col s6");
-
-  instDiv.append(div);
+addName.addEventListener("click", (event) => {
+  event.preventDefault();
+  recName.textContent = rName.value;
 });
 
-save.addEventListener("click", (event) => {
+addInst.addEventListener("click", (event) => {
   event.preventDefault();
-  const rInst = document.querySelectorAll(".instructions");
-  rInst.forEach((instruction) => {
-    console.log(instruction.value);
-  });
-  console.log(rName.value, rIng.value);
-  console.log(rIng.value);
+  allInst.push(rInst.value);
+  console.log(allInst);
+  const li = document.createElement("li");
+  li.textContent = rInst.value;
+  listInst.append(li);
 });
 
 addIng.addEventListener("click", (event) => {
   event.preventDefault();
   allIng.push(rIng.value);
   console.log(allIng);
+  const li = document.createElement("li");
+  li.textContent = rIng.value;
+  listIng.append(li);
+});
+
+save.addEventListener("click", (event) => {
+  event.preventDefault();
+  console.log(rName.value);
+  console.log(allIng);
+  console.log(allInst);
+  fetch(`/api/addRecipe`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: rName.value,
+      ingredients: allIng,
+      instructions: allInst,
+    }),
+  });
 });

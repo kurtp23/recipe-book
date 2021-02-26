@@ -19,9 +19,10 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-const routes = require("./routes/html-routes.js");
-
-app.use(routes);
+var routesHtml = require("./routes/html-routes.js");
+var routesApi = require("./routes/api-routes.js");
+app.use(routesHtml);
+app.use(routesApi);
 
 // Can pass argument === true will drop table for testing purposes
 db.sequelize.sync().then(function() {

@@ -1,1 +1,1 @@
-const apiRoutes = require("../../routes/api-routes");
+fetch(`/api/recipes`).then(() => {});

@@ -1,4 +1,5 @@
 var express = require("express");
+const db = require("./models");
 
 var PORT = process.env.PORT || 3000;
 
@@ -22,6 +23,9 @@ var routes = require("./routes/html-routes.js");
 
 app.use(routes);
 
-app.listen(PORT, function () {
-  console.log("App now listening at localhost:" + PORT);
+// Can pass argument === true will drop table for testing purposes
+db.sequelize.sync().then(function() {
+  app.listen(PORT, function() {
+    console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+  });
 });

@@ -3,8 +3,15 @@ const router = express.Router();
 
 router.get("/view", (req, res) => res.render("recipes"));
 router.get("/", (req, res) => {
-  console.log("hello");
   res.render("menu", {});
 });
-
+router.get("/login", (req, res) => {
+  res.render("login", {});
+});
+router.get("/signUp", (req, res) => {
+  res.render("newUser", {});
+});
+router.get("/newRecipe", (req, res) => {
+  res.render("add", {});
+});
 module.exports = router;

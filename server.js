@@ -26,6 +26,6 @@ app.use(routes);
 // Can pass argument === true will drop table for testing purposes
 db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
-    console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+    console.log(`==> 🌎 App listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`);
   });
 });

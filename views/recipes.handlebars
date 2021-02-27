@@ -1,5 +1,12 @@
 <nav>
-  <div class="nav-wrapper grey lighten-3">
+  <div class="nav-wrapper orange darken-1">
+
+      <a href="#!" class="brand-logo"><i class="material-icons">book</i>iCook</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html">Add Recipe</a></li>
+        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+      </ul>
     <form>
       <div class="input-field">
         <input id="search" type="search" required />
@@ -11,36 +18,41 @@
     <ul class="right hide-on-med-and-down"></ul>
   </div>
 </nav>
+<div class="container">
 <div class="row">
   <div class="col s3 blue white-text">
+    <p><a class=" white-text" href="/">Menu</a></p>
     <div class="collection">
       {{#each recipes}}
       <a href="#!" class="collection-item blue-text">{{this.title}}</a>
       {{/each}}
-
     </div>
-    <p><a class=" white-text" href="/">Menu</a></p>
-  </div>
-  <div class="col s9 blue white-text">
-    <h1>{{recipe.name}}</h1>
-    <h3>Ingredients</h3>
-    <ul>
-      {{#each ingredient}}
-      <li>
-        {{this.ingridientName}}
-      </li>
-      {{/each}}
-    </ul>
-    <h3>Instructions</h3>
-    <ul>
-      {{#each instructions}}
-      <li>
-        {{this.instructionName}}
-      </li>
-      {{/each}}
-    </ul>
+
   </div>
 
+    <div class="col s9 blue white-text">
+      {{!-- <h1>{{recipe.name}}</h1> --}}
+      <h2>Chiken Tikka Masala</h1>
+      <h4>Ingredients</h3>
+      <ul>
+        {{#each ingredient}}
+        <li>
+          {{this.ingridientName}}
+        </li>
+        {{/each}}
+      </ul>
+
+      <h4>Instructions</h3>
+      <ul>
+        {{#each instructions}}
+        <li>
+          {{this.instructionName}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div><!--containter-->
+  
 </div>
 
 <script src="/js/recipes.js"></script>

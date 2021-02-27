@@ -1,1 +1,1 @@
-fetch(`/api/recipes`).then(() => {});
+fetch(`/api/viewRecipes`, { method: "PUT" });

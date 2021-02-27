@@ -5,10 +5,13 @@ const validateLogin = require("../auth/validateLogin");
 const db = require("../models");
 
 router.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  validateLogin({ username, password })
-    .then((token) => {
-      res.json({ token });
+    const {username, password} = req.body;
+    validateLogin({username, password})
+    .then(token => {
+      res.cookie("access_token", `Bearer ${token}`, {
+        expires: new Date(Date.now() + 10000)
+      });
+      res.redirect("/");
     })
     .catch((err) => {
       console.log(err);

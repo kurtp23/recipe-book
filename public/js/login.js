@@ -13,6 +13,10 @@ loginBtn.addEventListener("click", (event) => {
     headers: {
       "Content-Type": "application/json",
     },
+<<<<<<< HEAD
+    body: JSON.stringify({username, password})
+  }).then(()=> {window.location.replace("/")})
+=======
     body: JSON.stringify({ username, password }),
   })
     .then((response) => response.json())
@@ -21,4 +25,5 @@ loginBtn.addEventListener("click", (event) => {
       localStorage.setItem("token", data.token);
       window.location.reload();
     });
+>>>>>>> main
 });

@@ -1,4 +1,5 @@
 const express = require("express");
+const authenticateToken = require("../auth/middleware/authenticateToken");
 const router = express.Router();
 const db = require("../models");
 
@@ -8,7 +9,7 @@ router.get("/view", (req, res) => {
     res.render("recipes", {recipes: recipes});
   });
 });
-router.get("/", (req, res) => {
+router.get("/", authenticateToken, (req, res) => {
   res.render("menu", {});
 });
 router.get("/login", (req, res) => {
@@ -20,7 +21,12 @@ router.get("/signUp", (req, res) => {
 router.get("/newRecipe", (req, res) => {
   res.render("add", {});
 });
-router.get("/testAuth", (req, res) => {
+router.get("/testAuth", authenticateToken, (req, res) => {
   res.render("testAuth", {});
 });
+
+router.get("/authenticate", (req, res) => {
+  res.render("authenticate", {})
+})
+
 module.exports = router;

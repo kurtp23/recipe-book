@@ -14,4 +14,7 @@ router.get("/signUp", (req, res) => {
 router.get("/newRecipe", (req, res) => {
   res.render("add", {});
 });
+router.get("/testAuth", (req, res) => {
+  res.render("testAuth", {});
+});
 module.exports = router;

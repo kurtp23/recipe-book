@@ -13,17 +13,6 @@ loginBtn.addEventListener("click", (event) => {
     headers: {
       "Content-Type": "application/json",
     },
-<<<<<<< HEAD
     body: JSON.stringify({username, password})
   }).then(()=> {window.location.replace("/")})
-=======
-    body: JSON.stringify({ username, password }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      window.location.reload();
-    });
->>>>>>> main
 });

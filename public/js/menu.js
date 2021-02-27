@@ -15,8 +15,3 @@ add.addEventListener("click", (event) => {
   //   fetch("/view", { method: "GET" });
   window.location.replace("/newRecipe");
 });
-
-// view.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   fetch(`/`, { method: "GET" });
-// });

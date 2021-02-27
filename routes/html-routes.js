@@ -4,9 +4,10 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/view", (req, res) => {
-  db.Recipe.findAll({}).then( (dbRecipe) => {
-    const recipes = dbRecipe.map(el => el.dataValues);
-    res.render("recipes", {recipes: recipes});
+  Promise.all([db.Recipe.findAll({}), db.Ingredient.findAll({})]).then((values) => {
+    const recipes = values[0].map((el) => el.dataValues);
+    const ingredients = values[1].map((el) => el.dataValues);
+    res.render("recipes", { recipes: recipes, ingredients: ingredients, recName: "soup" });
   });
 });
 router.get("/", authenticateToken, (req, res) => {
@@ -26,7 +27,7 @@ router.get("/testAuth", authenticateToken, (req, res) => {
 });
 
 router.get("/authenticate", (req, res) => {
-  res.render("authenticate", {})
-})
+  res.render("authenticate", {});
+});
 
 module.exports = router;

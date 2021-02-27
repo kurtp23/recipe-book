@@ -22,20 +22,20 @@
     <p><a class=" white-text" href="/">Menu</a></p>
   </div>
   <div class="col s9 blue white-text">
-    <h1>{{recipe.name}}</h1>
+    <h1>{{recName}}</h1>
     <h3>Ingredients</h3>
     <ul>
-      {{#each ingredient}}
+      {{#each ingredients}}
       <li>
-        {{this.ingridientName}}
+        {{this.ingredient}}
       </li>
       {{/each}}
     </ul>
     <h3>Instructions</h3>
     <ul>
-      {{#each instructions}}
+      {{#each recipes}}
       <li>
-        {{this.instructionName}}
+        {{this.instructions}}
       </li>
       {{/each}}
     </ul>

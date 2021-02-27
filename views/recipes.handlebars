@@ -14,33 +14,30 @@
 <div class="row">
   <div class="col s3 blue white-text">
     <div class="collection">
-      <a href="#!" class="collection-item blue-text">Soup</a>
-      <a href="#!" class="collection-item blue-text">Steak</a>
-      <a href="#!" class="collection-item blue-text">Fish</a>
-      <a href="#!" class="collection-item blue-text">Water</a>
+      {{#each recipe}}
+      <a href="#!" class="collection-item blue-text">{{this.recipeName}}</a>
+      {{/each}}
 
     </div>
     <p><a class=" white-text" href="/">Menu</a></p>
   </div>
   <div class="col s9 blue white-text">
-    <h1>Recipe Name</h1>
+    <h1>{{recipe.name}}</h1>
     <h3>Ingredients</h3>
     <ul>
+      {{#each ingredient}}
       <li>
-        1
+        {{this.ingridientName}}
       </li>
-      <li>
-        3
-      </li>
+      {{/each}}
     </ul>
     <h3>Instructions</h3>
     <ul>
+      {{#each instructions}}
       <li>
-        1
+        {{this.instructionName}}
       </li>
-      <li>
-        3
-      </li>
+      {{/each}}
     </ul>
   </div>
 

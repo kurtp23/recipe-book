@@ -29,30 +29,26 @@ router.post("/api/signUp", (req, res) => {
 });
 
 router.post("/api/addRecipe", (req, res) => {
-  const { username, password } = req.body;
+  const {name, instructions, ingredients} = req.body;
+  console.log(`title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(ingredients)}`)
+  
   db.Recipe.create({
-    title: req.body.name,
-    instructions: JSON.stringify(req.body.instructions),
-  }).then(function (user) {
-    // We have access to the new todo as an argument inside of the callback function
+    title: name,
+    instructions: JSON.stringify(instructions),
+  })
 
-    res.json(user);
-  });
   db.Ingredient.create({
-    ingredient: JSON.stringify(req.body.ingredients),
+    ingredient: JSON.stringify(ingredients),
     quantity: "0",
-  }).then(function (user) {
-    // We have access to the new todo as an argument inside of the callback function
-
-    res.json(user);
-  });
+  })
+  res.status(200)
 });
+
 router.put("/api/viewRecipes", (req, res) => {
-  db.Recipe.findAll({}).then(function (dbRecipe) {
-    // We have access to the todos as an argument inside of the callback function
-    console.log(dbRecipe);
-    console.log(typeof dbRecipe);
-    res.render("recipes", { recipes: dbRecipe });
+  db.Recipe.findAll({}).then( (dbRecipe) => {
+    const recipes = dbRecipe.map(el => el.dataValues);
+    console.log(recipes);
+    res.render("recipes", {recipes: recipes});
   });
 });
 

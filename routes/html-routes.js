@@ -1,10 +1,16 @@
 const express = require("express");
 const authenticateToken = require("../auth/middleware/authenticateToken");
 const router = express.Router();
+const db = require("../models");
 
-router.get("/view", (req, res) => res.render("recipes"));
+router.get("/view", (req, res) => {
+  db.Recipe.findAll({}).then( (dbRecipe) => {
+    const recipes = dbRecipe.map(el => el.dataValues);
+    res.render("recipes", {recipes: recipes});
+  });
+});
 router.get("/", authenticateToken, (req, res) => {
-    res.render("menu", {});
+  res.render("menu", {});
 });
 router.get("/login", (req, res) => {
   res.render("login", {});

@@ -54,3 +54,4 @@ save.addEventListener("click", (event) => {
     }),
   });
 });
+//maybe make ingridients an array of objects

@@ -7,7 +7,9 @@ router.post("/login", (req, res) => {
     const {username, password} = req.body;
     validateLogin({username, password})
     .then(token => {
-      res.json({token})
+      res.status(201).cookie("access_token", `Bearer ${token}`, {
+        expires: new Date(Date.now() + 10000)
+      });
     })
     .catch(err => {
         console.log(err);

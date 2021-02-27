@@ -31,11 +31,6 @@ router.post("/api/signUp", (req, res) => {
   });
 });
 
-router.post("test", (req, res) => {
-  console.log(JSON.stringify(req.cookie));
-  res.status(200).end();
-})
-
 router.post("/api/addRecipe", (req, res) => {
   const {name, instructions, ingredients} = req.body;
   console.log(`title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(ingredients)}`)

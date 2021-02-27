@@ -47,12 +47,12 @@ router.post("/api/addRecipe", (req, res) => {
     res.json(user);
   });
 });
-router.get("/api/viewRecipes", (req, res) => {
+router.put("/api/viewRecipes", (req, res) => {
   db.Recipe.findAll({}).then(function (dbRecipe) {
     // We have access to the todos as an argument inside of the callback function
     console.log(dbRecipe);
     console.log(typeof dbRecipe);
-    res.render("recipes", { dbRecipe });
+    res.render("recipes", { recipes: dbRecipe });
   });
 });
 

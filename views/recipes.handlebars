@@ -14,9 +14,9 @@
 <div class="row">
   <div class="col s3 blue white-text">
     <div class="collection">
-      {{!-- {{#each dbRecipe}} --}}
-      <a href="#!" class="collection-item blue-text">{{dbRecipe[0].title}}</a>
-      {{!-- {{/each}} --}}
+      {{#each recipes}}
+      <a href="#!" class="collection-item blue-text">{{this.title}}</a>
+      {{/each}}
 
     </div>
     <p><a class=" white-text" href="/">Menu</a></p>

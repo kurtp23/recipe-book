@@ -18,13 +18,10 @@ const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Authenticate user
-const expJwt = require("./auth/expJwt");
 // Import routes and give the server access to them.
 const routesHtml = require("./routes/html-routes");
 const routesApi = require("./routes/api-routes");
 
-app.use(expJwt());
 app.use(routesHtml);
 app.use(routesApi);
 

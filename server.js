@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("./models");
+const cookieParser = require('cookie-parser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -11,6 +12,7 @@ app.use(express.static("public"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 // Set Handlebars.
 const exphbs = require("express-handlebars");

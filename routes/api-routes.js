@@ -7,14 +7,20 @@ router.post("/login", (req, res) => {
     const {username, password} = req.body;
     validateLogin({username, password})
     .then(token => {
-      res.status(201).cookie("access_token", `Bearer ${token}`, {
+      res.cookie("access_token", `Bearer ${token}`, {
         expires: new Date(Date.now() + 10000)
       });
+      res.redirect("/");
     })
     .catch(err => {
         console.log(err);
         res.status(401).end();
     });
+})
+
+router.post("test", (req, res) => {
+  console.log(JSON.stringify(req.cookie));
+  res.status(200).end();
 })
 
 router.post("/api/addRecipe", (req, res) => {

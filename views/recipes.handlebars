@@ -15,27 +15,27 @@
   <div class="col s3 blue white-text">
     <div class="collection">
       {{#each recipes}}
-      <a href="#!" class="collection-item blue-text">{{this.title}}</a>
+      <a href="" class="collection-item blue-text">{{this.name}}</a>
       {{/each}}
 
     </div>
     <p><a class=" white-text" href="/">Menu</a></p>
   </div>
   <div class="col s9 blue white-text">
-    <h1>{{recName}}</h1>
+    <h1>{{recipe.name}}</h1>
     <h3>Ingredients</h3>
     <ul>
-      {{#each ingredients}}
+      {{#each recipe.ingredients}}
       <li>
-        {{this.ingredient}}
+        {{this}}
       </li>
       {{/each}}
     </ul>
     <h3>Instructions</h3>
     <ul>
-      {{#each recipes}}
+      {{#each recipe.instructions}}
       <li>
-        {{this.instructions}}
+        {{this}}
       </li>
       {{/each}}
     </ul>

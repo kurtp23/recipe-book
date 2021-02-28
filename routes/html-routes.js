@@ -4,10 +4,31 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/view", (req, res) => {
+  db.RecIng.findAll({
+    where: {
+      recId: recipe.id,
+    },
+  });
+
   Promise.all([db.Recipe.findAll({}), db.Ingredient.findAll({})]).then((values) => {
-    const recipes = values[0].map((el) => el.dataValues);
-    const ingredients = values[1].map((el) => el.dataValues);
-    res.render("recipes", { recipes: recipes, ingredients: ingredients, recName: "soup" });
+    const recipes = values[0].map((el) => el.dataValues.title);
+    const instructions = values[0].map((el) => el.dataValues.instructions);
+    const ingredients = values[1].map((el) => el.dataValues.ingredient);
+    console.log(recipes);
+    console.log(recipes[2]);
+    console.log(JSON.parse(instructions[2]));
+    console.log(ingredients);
+    // db.Ingredient.get();
+    const json = {
+      recipes: [{ name: "q" }, { name: "w" }, { name: "e" }],
+      recipe: {
+        name: "string",
+        instructions: JSON.parse(instructions[2]),
+        ingredients: JSON.parse(ingredients[2]),
+      },
+    };
+
+    res.render("recipes", json);
   });
 });
 router.get("/", authenticateToken, (req, res) => {

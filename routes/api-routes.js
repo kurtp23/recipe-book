@@ -5,11 +5,11 @@ const validateLogin = require("../auth/validateLogin");
 const db = require("../models");
 
 router.post("/login", (req, res) => {
-    const {username, password} = req.body;
-    validateLogin({username, password})
-    .then(token => {
+  const { username, password } = req.body;
+  validateLogin({ username, password })
+    .then((token) => {
       res.cookie("access_token", `Bearer ${token}`, {
-        expires: new Date(Date.now() + 10000)
+        expires: new Date(Date.now() + 10000),
       });
       res.redirect("/");
     })
@@ -32,26 +32,29 @@ router.post("/api/signUp", (req, res) => {
 });
 
 router.post("/api/addRecipe", (req, res) => {
-  const {name, instructions, ingredients} = req.body;
-  console.log(`title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(ingredients)}`)
-  
+  const { name, instructions, ingredients } = req.body;
+  console.log(
+    `title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(
+      ingredients
+    )}`
+  );
+
   db.Recipe.create({
     title: name,
     instructions: JSON.stringify(instructions),
-  })
+  });
 
   db.Ingredient.create({
     ingredient: JSON.stringify(ingredients),
-    quantity: "0",
-  })
-  res.status(200)
+  });
+  res.status(200);
 });
 
 router.put("/api/viewRecipes", (req, res) => {
-  db.Recipe.findAll({}).then( (dbRecipe) => {
-    const recipes = dbRecipe.map(el => el.dataValues);
+  db.Recipe.findAll({}).then((dbRecipe) => {
+    const recipes = dbRecipe.map((el) => el.dataValues);
     console.log(recipes);
-    res.render("recipes", {recipes: recipes});
+    res.render("recipes", { recipes: recipes });
   });
 });
 

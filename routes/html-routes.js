@@ -46,7 +46,9 @@ router.get("/newRecipe", (req, res) => {
 router.get("/testAuth", authenticateToken, (req, res) => {
   res.render("testAuth", {});
 });
-
+router.get("/test", (req, res) => {
+  res.render("test", {});
+})
 router.get("/authenticate", (req, res) => {
   res.render("authenticate", {});
 });

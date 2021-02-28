@@ -1,14 +1,6 @@
 // User model
 module.exports = function(sequelize, DataTypes) {
     const RecIng = sequelize.define("RecIng", {
-        recipeId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        ingredientId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         quantity: {
             type: DataTypes.DECIMAL,
             allowNull: true,
@@ -17,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true
         }
-    });
+    }, { timestamps: false });
     return RecIng;
   };
   

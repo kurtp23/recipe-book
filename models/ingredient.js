@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         },
     });
     Ingredient.associate = (db) => {
-        Ingredient.belongsToMany(db.Recipe, {through: "recIngs"})
+        Ingredient.belongsToMany(db.Recipe, {through: db.RecIng})
     }
     return Ingredient;
 };

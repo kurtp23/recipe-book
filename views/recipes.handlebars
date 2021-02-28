@@ -1,36 +1,41 @@
 <nav>
   <div class="nav-wrapper orange darken-1">
 
-      <a href="#!" class="brand-logo"><i class="material-icons">book</i>iCook</a>
+      <a href="#!" class="brand-logo"><i class="material-icons">book</i>myCookbook</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html">Add Recipe</a></li>
-        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+        <li><a href="/newRecipe">Add</a></li>
+        <li><a class="" href="/login">Exit</a></li>
       </ul>
-    <form>
+    {{!-- <form>
       <div class="input-field">
         <input id="search" type="search" required />
         <label class="label-icon black-text" for="search" value="Search for a Recipe"><i
             class="material-icons"></i></label>
         <i class="material-icons">close</i>
       </div>
-    </form>
+    </form> --}}
     <ul class="right hide-on-med-and-down"></ul>
   </div>
 </nav>
-<div class="container">
-<div class="row">
-  <div class="col s3 blue white-text">
-    <p><a class=" white-text" href="/">Menu</a></p>
+
+<div class="row ">
+  <div class="col yellow darken-2 side-nav">
+          <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
     <div class="collection">
       {{#each recipes}}
-      <a href="#!" class="collection-item blue-text">{{this.title}}</a>
+      <a href="#!" class="collection-item black-text">{{this.title}}</a>
       {{/each}}
     </div>
 
   </div>
-
-    <div class="col s9 blue white-text">
+<div class="container recipe-page">
+    <div class="col">
       {{!-- <h1>{{recipe.name}}</h1> --}}
       <h2>Chiken Tikka Masala</h1>
       <h4>Ingredients</h3>
@@ -40,6 +45,9 @@
           {{this.ingridientName}}
         </li>
         {{/each}}
+        <li>Chicken</li>
+        <li>Tikka</li>
+        <li>Masala</li>
       </ul>
 
       <h4>Instructions</h3>
@@ -49,6 +57,9 @@
           {{this.instructionName}}
         </li>
         {{/each}}
+        <li>Prepare</li>
+        <li>Cook</li>
+        <li>Eat</li>
       </ul>
     </div>
   </div><!--containter-->

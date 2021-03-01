@@ -11,8 +11,12 @@ const listIng = document.getElementById("listIng");
 const listInst = document.getElementById("listInst");
 const addName = document.getElementById("addName");
 const recName = document.getElementById("recipeName");
+const amount = document.getElementById("amount");
+const measure = document.getElementById("measure");
 const allIng = [];
 const allInst = [];
+const allMeasure = [];
+const allAmount = [];
 
 addName.addEventListener("click", (event) => {
   event.preventDefault();
@@ -21,19 +25,22 @@ addName.addEventListener("click", (event) => {
 
 addInst.addEventListener("click", (event) => {
   event.preventDefault();
+
   allInst.push(rInst.value);
   console.log(allInst);
   const li = document.createElement("li");
-  li.textContent = rInst.value;
+  li.textContent = amount.value + measure.value + rInst.value;
   listInst.append(li);
 });
 
 addIng.addEventListener("click", (event) => {
   event.preventDefault();
+  allMeasure.push(measure.value);
+  allAmount.push(amount.value);
   allIng.push(rIng.value);
-  console.log(allIng);
+  console.log(allIng, allAmount, allMeasure);
   const li = document.createElement("li");
-  li.textContent = rIng.value;
+  li.textContent = `${amount.value} ${measure.value} ${rIng.value}`;
   listIng.append(li);
 });
 
@@ -50,8 +57,14 @@ save.addEventListener("click", (event) => {
     body: JSON.stringify({
       name: rName.value,
       ingredients: allIng,
+      amounts: allAmount,
+      measurements: allMeasure,
       instructions: allInst,
     }),
   });
 });
 //maybe make ingridients an array of objects
+
+//add below to body to push the arrays of amounts and measurments
+// amounts: allAmount,
+// measurements: allMeasure,

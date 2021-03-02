@@ -4,11 +4,11 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/view", (req, res) => {
-  db.RecIng.findAll({
-    where: {
-      recId: recipe.id,
-    },
-  });
+  // db.RecIng.findAll({
+  //   where: {
+  //     recId: recipe.id,
+  //   },
+  // });
 
   Promise.all([db.Recipe.findAll({}), db.Ingredient.findAll({})]).then((values) => {
     const recipes = values[0].map((el) => el.dataValues.title);

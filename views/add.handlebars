@@ -14,38 +14,43 @@
       <a id="addName" class="waves-effect waves-light btn-large blue">Add Recipe name</a>
     </div>
     <div class="row">
-      <div class="input-field col s6">
-        <input value="Egg" id="ingredient" type="text" class="validate" />
-        <label class="active">ingredients</label>
-        <a id="addIngredient" class="waves-effect waves-light btn-large blue">Add Ingredient</a>
+      <div class="input-field col s3">
+        <input value="3" id="amount" type="text" class="validate" />
+        <label class="active">Quantity</label>
+      </div>
+      <div class="input-field col s3">
+        <input value="oz" id="measure" type="text" class="validate" />
+        <label class="active">Measurement</label>
       </div>
       <div class="input-field col s6">
+        <input value="Egg" id="ingredient" type="text" class="validate" />
+        <label class="active">Ingredients</label>
+      </div>
+      <a id="addIngredient" class="waves-effect waves-light btn-large blue">Add Ingredient</a>
+
+    </div>
+    <div class=" center-align">
+      <div class="input-field col s6 center-align">
         <input value="Instruction" id="instruction" type="text" class="validate" />
         <label class="active">Instruction</label>
         <a id="addInstruction" class="waves-effect waves-light btn-large blue">Add Instruction</a>
       </div>
-
-
-
     </div>
   </div>
-  <div class="row">
+
+  <div class="row ">
     <h3 id="recipeName"></h3>
-    <div class="col">
+    <div class="col s6 center-align">
       <ul id="listIng">
-        <h3>Ingredients</h3>
+        <h4 class="card-content center-align">Ingredients</h4>
       </ul>
     </div>
-    <div class="col">
+    <div class="col s6 center-align">
       <ul id="listInst">
-        <h3>Instructions</h3>
+        <h4 class="card-content center-align">Instructions</h4>
       </ul>
     </div>
-
-
   </div>
-
-
 </div>
 
 <div class="card-content center-align">

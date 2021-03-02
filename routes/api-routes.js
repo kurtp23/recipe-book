@@ -1,15 +1,16 @@
 const express = require("express");
 const authenticateToken = require("../auth/middleware/authenticateToken");
 const router = express.Router();
-const validateLogin = require("../auth/validateLogin");
 const db = require("../models");
+const timeout = parseInt(require("../config/auth.json").timeout);
+const validateLogin = require("../auth/validateLogin");
 
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
   validateLogin({ username, password })
     .then((token) => {
       res.cookie("access_token", `Bearer ${token}`, {
-        expires: new Date(Date.now() + 10000),
+        expires: new Date(Date.now() + timeout * 1000),
       });
       res.redirect("/");
     })
@@ -63,42 +64,42 @@ router.post("/testAuth", authenticateToken, (req, res) => {
 });
 
 router.post("/testAdd", async (req, res) => {
-    const {title, instructions, ingredients} = req.body;
-    console.log(`Instructions: ${instructions}`);
-    const [recipe, recCreated] = await db.Recipe.findOrCreate({
-        where: { title },
-        defaults: { instructions }
-    });
+  const { title, instructions, ingredients } = req.body;
+  console.log(`Instructions: ${instructions}`);
+  const [recipe, recCreated] = await db.Recipe.findOrCreate({
+    where: { title },
+    defaults: { instructions },
+  });
 
-    // ing = {
-    //     name: "Salt",
-    //     quantity: "1",
-    //     measurement: "tbsp"
-    // }
-    if (recCreated) {
-        ingredients.forEach(async ing => {
-            const { name, quantity, measurement } = ing;
-            console.log(`PARAMETERS:\n     quantity: ${quantity}\n     measurement: ${measurement}\n`);
-            const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
-            console.log(`INGREDIENT: ${JSON.stringify(ingredient)}`);
-            recipe.addIngredient(ingredient, { through: { quantity, measurement } });
-        });
-    }
-    const result = await db.Recipe.findOne({
-        where: {title},
-        include: db.Ingredient
+  // ing = {
+  //     name: "Salt",
+  //     quantity: "1",
+  //     measurement: "tbsp"
+  // }
+  if (!recCreated) {
+    ingredients.forEach(async (ing) => {
+      const { name, quantity, measurement } = ing;
+      console.log(`PARAMETERS:\n     quantity: ${quantity}\n     measurement: ${measurement}\n`);
+      const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
+      console.log(`INGREDIENT: ${JSON.stringify(ingredient)}`);
+      recipe.addIngredient(ingredient, { through: { quantity, measurement } });
     });
-    console.log(JSON.stringify(result));
-    res.status(200)
+  }
+  const result = await db.Recipe.findOne({
+    where: { title },
+    include: db.Ingredient,
+  });
+  console.log(JSON.stringify(result));
+  res.status(200);
 });
 
-router.post("/testView", async(req, res) => {
-    const { title } = req.body;
-    const recipe = await db.Recipe.findOne({
-        where: { title },
-        include: db.Ingredient
-    });
-    console.log(recipe);
+router.post("/testView", async (req, res) => {
+  const { title } = req.body;
+  const recipe = await db.Recipe.findOne({
+    where: { title },
+    include: db.Ingredient,
+  });
+  console.log(recipe);
 });
 
 module.exports = router;

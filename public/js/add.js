@@ -15,8 +15,6 @@ const amount = document.getElementById("amount");
 const measure = document.getElementById("measure");
 const allIng = [];
 const allInst = [];
-const allMeasure = [];
-const allAmount = [];
 
 addName.addEventListener("click", (event) => {
   event.preventDefault();
@@ -29,16 +27,20 @@ addInst.addEventListener("click", (event) => {
   allInst.push(rInst.value);
   console.log(allInst);
   const li = document.createElement("li");
-  li.textContent = amount.value + measure.value + rInst.value;
+  li.textContent = rInst.value;
   listInst.append(li);
 });
 
 addIng.addEventListener("click", (event) => {
   event.preventDefault();
-  allMeasure.push(measure.value);
-  allAmount.push(amount.value);
-  allIng.push(rIng.value);
-  console.log(allIng, allAmount, allMeasure);
+  let ingredient = {
+    name: rIng.value,
+    quantity: amount.value,
+    measurement: measure.value,
+  };
+
+  allIng.push(ingredient);
+  console.log(allIng);
   const li = document.createElement("li");
   li.textContent = `${amount.value} ${measure.value} ${rIng.value}`;
   listIng.append(li);
@@ -56,10 +58,8 @@ save.addEventListener("click", (event) => {
     },
     body: JSON.stringify({
       name: rName.value,
-      ingredients: allIng,
-      amounts: allAmount,
-      measurements: allMeasure,
       instructions: allInst,
+      ingredients: allIng,
     }),
   });
 });

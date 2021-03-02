@@ -75,7 +75,7 @@ router.post("/testAdd", async (req, res) => {
   //     quantity: "1",
   //     measurement: "tbsp"
   // }
-  if (recCreated) {
+  if (!recCreated) {
     ingredients.forEach(async (ing) => {
       const { name, quantity, measurement } = ing;
       console.log(`PARAMETERS:\n     quantity: ${quantity}\n     measurement: ${measurement}\n`);

@@ -1,5 +1,5 @@
 const postRecipe = document.getElementById("postRecipe");
-
+const viewRecipe = document.getElementById("viewRecipe");
 postRecipe.addEventListener("click", (event) => {
   event.preventDefault();
   fetch("/testAdd", {

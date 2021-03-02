@@ -102,4 +102,14 @@ router.post("/testView", async (req, res) => {
   console.log(recipe);
 });
 
+// test view recipes owned by user
+router.post("/testViewRecipes", authenticateToken, async(req, res) => {
+  const {username} = req.body;
+  const user = db.User.findOne({
+    where: { username },
+    include: db.Recipe,
+  });
+  console.log(user.recipes)
+})
+
 module.exports = router;

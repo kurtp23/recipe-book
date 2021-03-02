@@ -1,15 +1,16 @@
 const express = require("express");
 const authenticateToken = require("../auth/middleware/authenticateToken");
 const router = express.Router();
-const validateLogin = require("../auth/validateLogin");
 const db = require("../models");
+const timeout = parseInt(require("../config/auth.json").timeout);
+const validateLogin = require("../auth/validateLogin");
 
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
   validateLogin({ username, password })
     .then((token) => {
       res.cookie("access_token", `Bearer ${token}`, {
-        expires: new Date(Date.now() + 10000),
+        expires: new Date(Date.now() + timeout * 1000),
       });
       res.redirect("/");
     })
@@ -89,7 +90,7 @@ router.post("/testAdd", async (req, res) => {
         include: db.Ingredient
     });
     console.log(JSON.stringify(result));
-    res.status(200)
+    res.status(200).end();
 });
 
 router.post("/testView", async(req, res) => {
@@ -99,6 +100,7 @@ router.post("/testView", async(req, res) => {
         include: db.Ingredient
     });
     console.log(recipe);
+    res.status(200).end();
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./models");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +17,7 @@ app.use(cookieParser());
 // Set Handlebars.
 const exphbs = require("express-handlebars");
 
-app.engine("handlebars", exphbs({defaultLayout: "main"}));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.

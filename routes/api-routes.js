@@ -34,20 +34,21 @@ router.post("/api/signUp", (req, res) => {
 
 router.post("/api/addRecipe", (req, res) => {
   const { name, instructions, ingredients } = req.body;
-  console.log(
-    `title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(
-      ingredients
-    )}`
-  );
+  console.log(req.body);
+  // console.log(
+  //   `title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(
+  //     ingredients
+  //   )}`
+  // );
 
-  db.Recipe.create({
-    title: name,
-    instructions: JSON.stringify(instructions),
-  });
+  // db.Recipe.create({
+  //   title: name,
+  //   instructions: JSON.stringify(instructions),
+  // });
 
-  db.Ingredient.create({
-    ingredient: JSON.stringify(ingredients),
-  });
+  // db.Ingredient.create({
+  //   ingredient: JSON.stringify(ingredients),
+  // });
   res.status(200);
 });
 
@@ -63,19 +64,18 @@ router.post("/testAuth", authenticateToken, (req, res) => {
   res.json({ username: req.username });
 });
 
-router.post("/testAdd", async (req, res) => {
-  const { title, instructions, ingredients } = req.body;
-  console.log(`Instructions: ${instructions}`);
+router.post("/api/addRecipe", async (req, res) => {
+  console.log(`body: ${req.body}`);
   const [recipe, recCreated] = await db.Recipe.findOrCreate({
     where: { title },
     defaults: { instructions },
   });
 
-  // ing = {
-  //     name: "Salt",
-  //     quantity: "1",
-  //     measurement: "tbsp"
-  // }
+  ing = {
+    name: "Salt",
+    quantity: "1",
+    measurement: "tbsp",
+  };
   if (!recCreated) {
     ingredients.forEach(async (ing) => {
       const { name, quantity, measurement } = ing;

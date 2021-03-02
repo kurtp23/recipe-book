@@ -33,4 +33,11 @@ postRecipe.addEventListener("click", (event) => {
       ]
     })
   })
+});
+
+viewRecipe.addEventListener("click", (event) => {
+  event.preventDefault();
+  fetch("/testView", {
+    method: "POST",
+  });
 })

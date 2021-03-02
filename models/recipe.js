@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     });
     Recipe.associate = (db) => {
         Recipe.belongsToMany(db.Ingredient, {through: db.RecIng});
-        Recipe.belongsTo(db.User);
+        Recipe.belongsTo(db.User, {foreignKey: "authorId"});
     }
     return Recipe;
 };

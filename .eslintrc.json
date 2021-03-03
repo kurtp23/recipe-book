@@ -17,6 +17,7 @@
         "radix": "warn",
         "object-shorthand": "warn",
         "consistent-return": "warn",
-        "no-throw-literal": "warn"
+        "no-throw-literal": "warn",
+        "prefer-const": "warn"
     }
 }

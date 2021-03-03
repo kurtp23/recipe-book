@@ -32,23 +32,33 @@ router.post("/api/signUp", (req, res) => {
   });
 });
 
-router.post("/api/addRecipe", (req, res) => {
-  const { name, instructions, ingredients } = req.body;
+router.post("/api/addRecipe", authenticateToken, async (req, res) => {
+  const user = await db.User.findOne({ where: { username: req.username } });
+  const userId = user.id;
+  const name = req.body.name;
+  const instructionsArr = req.body.instructions;
+  const ingredientsArr = req.body.ingredients;
+  const ingObj = req.body.ingredients;
   console.log(req.body);
-  // console.log(
-  //   `title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(
-  //     ingredients
-  //   )}`
-  // );
+  console.log(name);
+  console.log(instructionsArr);
+  console.log(ingredientsArr);
+  console.log(ingObj);
 
-  // db.Recipe.create({
-  //   title: name,
-  //   instructions: JSON.stringify(instructions),
-  // });
+  const newRec = await db.Recipe.create({
+    title: name,
+    instructions: JSON.stringify(instructionsArr),
+    authorId: userId,
+  });
 
-  // db.Ingredient.create({
-  //   ingredient: JSON.stringify(ingredients),
-  // });
+  ingredientsArr.forEach(async (ing) => {
+    const { name, quantity, measurement } = ing;
+    console.log(`PARAMETERS:\n     quantity: ${quantity}\n     measurement: ${measurement}\n`);
+    const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
+    console.log(`INGREDIENT: ${JSON.stringify(ingredient)}`);
+    newRec.addIngredient(ingredient, { through: { quantity, measurement } });
+  });
+
   res.status(200);
 });
 
@@ -101,11 +111,19 @@ router.post("/testView", authenticateToken, async (req, res) => {
   const { username } = req;
   const user = await db.User.findOne({
     where: { username },
-    include: db.Recipe,
+    include: {
+      model: db.Recipe,
+      include: db.Ingredient,
+    },
   });
   const dbRecipes = user.dataValues.Recipes;
   const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
   console.log(recipes);
+  const titles = recipes.map((el) => ({
+    title: el.title,
+    id: el.id,
+  }));
+  console.log(titles);
 });
 
 module.exports = router;

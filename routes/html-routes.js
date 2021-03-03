@@ -3,34 +3,28 @@ const authenticateToken = require("../auth/middleware/authenticateToken");
 const router = express.Router();
 const db = require("../models");
 
-router.get("/view", (req, res) => {
-  // db.RecIng.findAll({
-  //   where: {
-  //     recId: recipe.id,
-  //   },
-  // });
-
-  Promise.all([db.Recipe.findAll({}), db.Ingredient.findAll({})]).then((values) => {
-    const recipes = values[0].map((el) => el.dataValues.title);
-    const instructions = values[0].map((el) => el.dataValues.instructions);
-    const ingredients = values[1].map((el) => el.dataValues.ingredient);
-    console.log(recipes);
-    console.log(recipes[2]);
-    console.log(JSON.parse(instructions[2]));
-    console.log(JSON.parse(ingredients[1]));
-    // db.Ingredient.get();
-    const json = {
-      recipes: [{ name: "q" }, { name: "w" }, { name: "e" }],
-      recipe: {
-        name: "something",
-        instructions: JSON.parse(instructions[2]),
-        ingredients: JSON.parse(ingredients[2]),
-      },
-    };
-
-    res.render("recipes", json);
+router.get("/view", authenticateToken, async (req, res) => {
+  const { username } = req;
+  const user = await db.User.findOne({
+    where: { username },
+    include: {
+      model: db.Recipe,
+      include: db.Ingredient,
+    },
   });
+  const dbRecipes = user.dataValues.Recipes;
+
+  const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
+  console.log(recipes);
+  const titles = recipes.map((el) => ({
+    title: el.title,
+    id: el.id,
+  }));
+  console.log(titles);
+
+  res.render("recipes", { titles, recipe: recipes[0] });
 });
+router.get("/recipe/:id");
 router.get("/", authenticateToken, (req, res) => {
   res.render("menu", {});
 });
@@ -40,7 +34,7 @@ router.get("/login", (req, res) => {
 router.get("/signUp", (req, res) => {
   res.render("newUser", {});
 });
-router.get("/newRecipe", (req, res) => {
+router.get("/newRecipe", authenticateToken, (req, res) => {
   res.render("add", {});
 });
 router.get("/testAuth", authenticateToken, (req, res) => {

@@ -14,20 +14,20 @@
 <div class="row">
   <div class="col s3 blue white-text">
     <div class="collection">
-      {{#each recipes}}
-      <a href="" class="collection-item blue-text">{{this.name}}</a>
+      {{#each titles}}
+      <a href="" id={{this.id}} class="collection-item blue-text">{{this.title}}</a>
       {{/each}}
 
     </div>
     <p><a class=" white-text" href="/">Menu</a></p>
   </div>
   <div class="col s9 blue white-text">
-    <h1>{{recipe.name}}</h1>
+    <h1>{{recipe.title}}</h1>
     <h3>Ingredients</h3>
     <ul>
       {{#each recipe.ingredients}}
       <li>
-        {{this}}
+        {{"something"}}
       </li>
       {{/each}}
     </ul>

@@ -95,19 +95,11 @@ router.post('/testAdd', authenticateToken, async (req, res) => {
     defaults: { instructions, authorId: user.id },
   });
 
-<<<<<<< HEAD
-  ing = {
-    name: "Salt",
-    quantity: "1",
-    measurement: "tbsp",
-  };
-=======
   // ing = {
   //     name: 'Salt',
   //     quantity: '1',
   //     measurement: 'tbsp'
   // }
->>>>>>> main
   if (!recCreated) {
     ingredients.forEach(async (ing) => {
       const { name, quantity, measurement } = ing;

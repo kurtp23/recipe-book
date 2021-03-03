@@ -4,6 +4,32 @@ const db = require('../models');
 
 const router = express.Router();
 
+<<<<<<< HEAD
+router.get("/view", authenticateToken, async (req, res) => {
+  const { username } = req;
+  const user = await db.User.findOne({
+    where: { username },
+    include: {
+      model: db.Recipe,
+      include: db.Ingredient,
+    },
+  });
+  const dbRecipes = user.dataValues.Recipes;
+
+  const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
+  console.log(recipes);
+  const titles = recipes.map((el) => ({
+    title: el.title,
+    id: el.id,
+  }));
+  console.log(titles);
+
+  res.render("recipes", { titles, recipe: recipes[0] });
+});
+router.get("/recipe/:id");
+router.get("/", authenticateToken, (req, res) => {
+  res.render("menu", {});
+=======
 router.get('/view', (req, res) => {
   // db.RecIng.findAll({
   //   where: {
@@ -34,6 +60,7 @@ router.get('/view', (req, res) => {
 });
 router.get('/', authenticateToken, (req, res) => {
   res.render('menu', {});
+>>>>>>> main
 });
 router.get('/login', (req, res) => {
   res.render('login', {});
@@ -41,8 +68,13 @@ router.get('/login', (req, res) => {
 router.get('/signUp', (req, res) => {
   res.render('newUser', {});
 });
+<<<<<<< HEAD
+router.get("/newRecipe", authenticateToken, (req, res) => {
+  res.render("add", {});
+=======
 router.get('/newRecipe', (req, res) => {
   res.render('add', {});
+>>>>>>> main
 });
 router.get('/testAuth', authenticateToken, (req, res) => {
   res.render('testAuth', {});

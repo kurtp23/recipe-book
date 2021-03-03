@@ -33,6 +33,20 @@ router.post('/api/signUp', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+router.post("/api/addRecipe", authenticateToken, async (req, res) => {
+  const user = await db.User.findOne({ where: { username: req.username } });
+  const userId = user.id;
+  const name = req.body.name;
+  const instructionsArr = req.body.instructions;
+  const ingredientsArr = req.body.ingredients;
+  const ingObj = req.body.ingredients;
+  console.log(req.body);
+  console.log(name);
+  console.log(instructionsArr);
+  console.log(ingredientsArr);
+  console.log(ingObj);
+=======
 router.post('/api/addRecipe', (req, res) => {
   const { name, instructions, ingredients } = req.body;
   console.log(
@@ -40,15 +54,22 @@ router.post('/api/addRecipe', (req, res) => {
       ingredients,
     )}`,
   );
+>>>>>>> main
 
-  db.Recipe.create({
+  const newRec = await db.Recipe.create({
     title: name,
-    instructions: JSON.stringify(instructions),
+    instructions: JSON.stringify(instructionsArr),
+    authorId: userId,
   });
 
-  db.Ingredient.create({
-    ingredient: JSON.stringify(ingredients),
+  ingredientsArr.forEach(async (ing) => {
+    const { name, quantity, measurement } = ing;
+    console.log(`PARAMETERS:\n     quantity: ${quantity}\n     measurement: ${measurement}\n`);
+    const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
+    console.log(`INGREDIENT: ${JSON.stringify(ingredient)}`);
+    newRec.addIngredient(ingredient, { through: { quantity, measurement } });
   });
+
   res.status(200);
 });
 
@@ -74,11 +95,19 @@ router.post('/testAdd', authenticateToken, async (req, res) => {
     defaults: { instructions, authorId: user.id },
   });
 
+<<<<<<< HEAD
+  ing = {
+    name: "Salt",
+    quantity: "1",
+    measurement: "tbsp",
+  };
+=======
   // ing = {
   //     name: 'Salt',
   //     quantity: '1',
   //     measurement: 'tbsp'
   // }
+>>>>>>> main
   if (!recCreated) {
     ingredients.forEach(async (ing) => {
       const { name, quantity, measurement } = ing;
@@ -96,16 +125,32 @@ router.post('/testAdd', authenticateToken, async (req, res) => {
   res.status(200);
 });
 
+<<<<<<< HEAD
+router.post("/testView", authenticateToken, async (req, res) => {
+  // test view recipes owned by user
+=======
 router.post('/testView', authenticateToken, async (req, res) => {
 // test view recipes owned by user
+>>>>>>> main
   const { username } = req;
   const user = await db.User.findOne({
     where: { username },
-    include: db.Recipe,
+    include: {
+      model: db.Recipe,
+      include: db.Ingredient,
+    },
   });
   const dbRecipes = user.dataValues.Recipes;
   const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
   console.log(recipes);
+<<<<<<< HEAD
+  const titles = recipes.map((el) => ({
+    title: el.title,
+    id: el.id,
+  }));
+  console.log(titles);
+=======
+>>>>>>> main
 });
 
 module.exports = router;

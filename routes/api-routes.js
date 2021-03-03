@@ -1,18 +1,19 @@
-const express = require("express");
-const authenticateToken = require("../auth/middleware/authenticateToken");
-const router = express.Router();
-const db = require("../models");
-const timeout = parseInt(require("../config/auth.json").timeout);
-const validateLogin = require("../auth/validateLogin");
+const express = require('express');
+const authenticateToken = require('../auth/middleware/authenticateToken');
+const db = require('../models');
+const timeout = parseInt(require('../config/auth.json').timeout);
+const validateLogin = require('../auth/validateLogin');
 
-router.post("/login", (req, res) => {
+const router = express.Router();
+
+router.post('/login', (req, res) => {
   const { username, password } = req.body;
   validateLogin({ username, password })
     .then((token) => {
-      res.cookie("access_token", `Bearer ${token}`, {
+      res.cookie('access_token', `Bearer ${token}`, {
         expires: new Date(Date.now() + timeout * 1000),
       });
-      res.redirect("/");
+      res.redirect('/');
     })
     .catch((err) => {
       console.log(err);
@@ -20,18 +21,19 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/api/signUp", (req, res) => {
+router.post('/api/signUp', (req, res) => {
   const { username, password } = req.body;
   db.User.create({
     username: req.body.username,
     password: req.body.password,
-  }).then(function (user) {
+  }).then((user) => {
     // We have access to the new todo as an argument inside of the callback function
 
     res.json(user);
   });
 });
 
+<<<<<<< HEAD
 router.post("/api/addRecipe", authenticateToken, async (req, res) => {
   const user = await db.User.findOne({ where: { username: req.username } });
   const userId = user.id;
@@ -44,6 +46,15 @@ router.post("/api/addRecipe", authenticateToken, async (req, res) => {
   console.log(instructionsArr);
   console.log(ingredientsArr);
   console.log(ingObj);
+=======
+router.post('/api/addRecipe', (req, res) => {
+  const { name, instructions, ingredients } = req.body;
+  console.log(
+    `title: ${name}\ninstructions: ${JSON.stringify(instructions)}\ningredient: ${JSON.stringify(
+      ingredients,
+    )}`,
+  );
+>>>>>>> main
 
   const newRec = await db.Recipe.create({
     title: name,
@@ -62,19 +73,19 @@ router.post("/api/addRecipe", authenticateToken, async (req, res) => {
   res.status(200);
 });
 
-router.put("/api/viewRecipes", (req, res) => {
+router.put('/api/viewRecipes', (req, res) => {
   db.Recipe.findAll({}).then((dbRecipe) => {
     const recipes = dbRecipe.map((el) => el.dataValues);
     console.log(recipes);
-    res.render("recipes", { recipes: recipes });
+    res.render('recipes', { recipes: recipes });
   });
 });
 
-router.post("/testAuth", authenticateToken, (req, res) => {
+router.post('/testAuth', authenticateToken, (req, res) => {
   res.json({ username: req.username });
 });
 
-router.post("/testAdd", authenticateToken, async (req, res) => {
+router.post('/testAdd', authenticateToken, async (req, res) => {
   const { username } = req;
   const { title, instructions, ingredients } = req.body;
   const user = await db.User.findOne({ where: { username } });
@@ -84,11 +95,19 @@ router.post("/testAdd", authenticateToken, async (req, res) => {
     defaults: { instructions, authorId: user.id },
   });
 
+<<<<<<< HEAD
   ing = {
     name: "Salt",
     quantity: "1",
     measurement: "tbsp",
   };
+=======
+  // ing = {
+  //     name: 'Salt',
+  //     quantity: '1',
+  //     measurement: 'tbsp'
+  // }
+>>>>>>> main
   if (!recCreated) {
     ingredients.forEach(async (ing) => {
       const { name, quantity, measurement } = ing;
@@ -106,8 +125,13 @@ router.post("/testAdd", authenticateToken, async (req, res) => {
   res.status(200);
 });
 
+<<<<<<< HEAD
 router.post("/testView", authenticateToken, async (req, res) => {
   // test view recipes owned by user
+=======
+router.post('/testView', authenticateToken, async (req, res) => {
+// test view recipes owned by user
+>>>>>>> main
   const { username } = req;
   const user = await db.User.findOne({
     where: { username },
@@ -119,11 +143,14 @@ router.post("/testView", authenticateToken, async (req, res) => {
   const dbRecipes = user.dataValues.Recipes;
   const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
   console.log(recipes);
+<<<<<<< HEAD
   const titles = recipes.map((el) => ({
     title: el.title,
     id: el.id,
   }));
   console.log(titles);
+=======
+>>>>>>> main
 });
 
 module.exports = router;

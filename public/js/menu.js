@@ -1,17 +1,17 @@
-//view/add recipe apiRoutes
+// view/add recipe apiRoutes
 
-const view = document.getElementById("view");
-const add = document.getElementById("add");
-view.addEventListener("click", (event) => {
+const view = document.getElementById('view');
+const add = document.getElementById('add');
+view.addEventListener('click', (event) => {
   event.preventDefault();
-  console.log("this is the button");
+  console.log('this is the button');
   //   fetch("/view", { method: "GET" });
-  window.location.replace("/view");
+  window.location.replace('/view');
 });
 
-add.addEventListener("click", (event) => {
+add.addEventListener('click', (event) => {
   event.preventDefault();
-  console.log("this is the button");
+  console.log('this is the button');
   //   fetch("/view", { method: "GET" });
-  window.location.replace("/newRecipe");
+  window.location.replace('/newRecipe');
 });

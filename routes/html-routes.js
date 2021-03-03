@@ -4,11 +4,7 @@ const db = require('../models');
 
 const router = express.Router();
 
-<<<<<<< HEAD
-router.get("/view", (req, res) => {
-=======
 router.get('/view', (req, res) => {
->>>>>>> main
   // db.RecIng.findAll({
   //   where: {
   //     recId: recipe.id,

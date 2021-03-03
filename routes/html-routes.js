@@ -24,8 +24,8 @@ router.get('/view', (req, res) => {
       recipes: [{ name: 'q' }, { name: 'w' }, { name: 'e' }],
       recipe: {
         name: 'Chicken Tikka Masala',
-        instructions: 'Let simmer until coooked',
-        ingredients: 'chicken',
+        instructions: ['Let simmer until coooked'],
+        ingredients: ['chicken'],
       },
     };
 

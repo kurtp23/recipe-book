@@ -20,7 +20,7 @@ CREATE TABLE ingredients (
 id INT NOT NULL AUTO_INCREMENT,
 in_name VARCHAR(80),
 PRIMARY KEY (id)
-);
+);`
 
 CREATE TABLE tags (
 re_id INT NOT NULL,

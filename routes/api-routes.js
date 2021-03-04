@@ -21,42 +21,29 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/api/signUp", (req, res) => {
+router.post('/api/signUp', async (req, res) => {
   const { username, password } = req.body;
-  db.User.create({
-    username: req.body.username,
-    password: req.body.password,
-  }).then((user) => {
-    // We have access to the new todo as an argument inside of the callback function
-
-    res.json(user);
+  const [user, created] = await db.User.findOrCreate({
+    where: { username },
+    defaults: { password },
   });
+  const message = created ? "User has already been created!" : "New user created";
+  res.json({ message });
 });
 
 router.post("/api/addRecipe", authenticateToken, async (req, res) => {
-  const user = await db.User.findOne({ where: { username: req.username } });
-  const userId = user.id;
-  const name = req.body.name;
-  const instructionsArr = req.body.instructions;
-  const ingredientsArr = req.body.ingredients;
-  const ingObj = req.body.ingredients;
-  console.log(req.body);
-  console.log(name);
-  console.log(instructionsArr);
-  console.log(ingredientsArr);
-  console.log(ingObj);
 
+  const {name, instructions, ingredients, isPublic} = req.body;
   const newRec = await db.Recipe.create({
     title: name,
-    instructions: JSON.stringify(instructionsArr),
-    authorId: userId,
+    instructions: instructions,
+    authorId: req.user.id,
+    isPublic: isPublic
   });
 
-  ingredientsArr.forEach(async (ing) => {
+  ingredients.forEach(async (ing) => {
     const { name, quantity, measurement } = ing;
-    console.log(`PARAMETERS:\n     quantity: ${quantity}\n     measurement: ${measurement}\n`);
     const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
-    console.log(`INGREDIENT: ${JSON.stringify(ingredient)}`);
     newRec.addIngredient(ingredient, { through: { quantity, measurement } });
   });
 
@@ -107,8 +94,8 @@ router.post("/testAdd", authenticateToken, async (req, res) => {
   res.status(200);
 });
 
-router.post("/testView", authenticateToken, async (req, res) => {
-  // test view recipes owned by user
+router.post('/testView', authenticateToken, async (req, res) => {
+// test view recipes owned by user
   const { username } = req;
   const user = await db.User.findOne({
     where: { username },

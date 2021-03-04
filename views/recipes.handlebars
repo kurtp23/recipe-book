@@ -28,7 +28,7 @@
       </div>
     </form>
     <div class="collection">
-      {{#each title}}
+      {{#each titles}}
       <a href="" id={{this.id}} class="collection-item blue-text">{{this.title}}</a>
       {{/each}}
     </div>
@@ -38,15 +38,15 @@
     <h1>{{recipe.title}}</h1>
     <h3>Ingredients</h3>
     <ul>
-      {{#each recipe.Ingredients}}
+      {{#each recipe.ingredients}}
       <li>
-        {{dataValues.RecIng.dataValues.quantity}}{{dataValues.RecIng.dataValues.measurement}}{{dataValues.name}}
+        {{this.quantity}} {{this.measurement}} {{this.name}}
       </li>
       {{/each}}
     </ul>
     <h3>Instructions</h3>
     <ul>
-      {{#each instructions}}
+      {{#each recipe.instructions}}
       <li>
         {{this}}
       </li>

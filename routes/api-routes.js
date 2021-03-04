@@ -1,19 +1,19 @@
-const express = require('express');
-const authenticateToken = require('../auth/middleware/authenticateToken');
-const db = require('../models');
-const timeout = parseInt(require('../config/auth.json').timeout);
-const validateLogin = require('../auth/validateLogin');
+const express = require("express");
+const authenticateToken = require("../auth/middleware/authenticateToken");
+const db = require("../models");
+const timeout = parseInt(require("../config/auth.json").timeout);
+const validateLogin = require("../auth/validateLogin");
 
 const router = express.Router();
 
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   const { username, password } = req.body;
   validateLogin({ username, password })
     .then((token) => {
-      res.cookie('access_token', `Bearer ${token}`, {
+      res.cookie("access_token", `Bearer ${token}`, {
         expires: new Date(Date.now() + timeout * 1000),
       });
-      res.redirect('/');
+      res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
@@ -61,19 +61,19 @@ router.post("/api/addRecipe", authenticateToken, async (req, res) => {
   res.status(200);
 });
 
-router.put('/api/viewRecipes', (req, res) => {
+router.put("/api/viewRecipes", (req, res) => {
   db.Recipe.findAll({}).then((dbRecipe) => {
     const recipes = dbRecipe.map((el) => el.dataValues);
     console.log(recipes);
-    res.render('recipes', { recipes: recipes });
+    res.render("recipes", { recipes: recipes });
   });
 });
 
-router.post('/testAuth', authenticateToken, (req, res) => {
+router.post("/testAuth", authenticateToken, (req, res) => {
   res.json({ username: req.username });
 });
 
-router.post('/testAdd', authenticateToken, async (req, res) => {
+router.post("/testAdd", authenticateToken, async (req, res) => {
   const { username } = req;
   const { title, instructions, ingredients } = req.body;
   const user = await db.User.findOne({ where: { username } });

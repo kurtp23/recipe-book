@@ -13,6 +13,7 @@ const addName = document.getElementById('addName');
 const recName = document.getElementById('recipeName');
 const amount = document.getElementById('amount');
 const measure = document.getElementById('measure');
+const makePublic = document.getElementById('makePublic');
 const allIng = [];
 const allInst = [];
 
@@ -51,6 +52,7 @@ save.addEventListener('click', (event) => {
   console.log(rName.value);
   console.log(allIng);
   console.log(allInst);
+  console.log(makePublic.checked);
   fetch('/api/addRecipe', {
     method: 'POST',
     headers: {
@@ -60,6 +62,7 @@ save.addEventListener('click', (event) => {
       name: rName.value,
       instructions: allInst,
       ingredients: allIng,
+      isPublic: makePublic.checked
     }),
   });
 });

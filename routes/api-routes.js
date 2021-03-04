@@ -33,11 +33,12 @@ router.post('/api/signUp', async (req, res) => {
 
 router.post("/api/addRecipe", authenticateToken, async (req, res) => {
 
-  const {name, instructions, ingredients} = req.body;
+  const {name, instructions, ingredients, isPublic} = req.body;
   const newRec = await db.Recipe.create({
     title: name,
     instructions: instructions,
     authorId: req.user.id,
+    isPublic: isPublic
   });
 
   ingredients.forEach(async (ing) => {

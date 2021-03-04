@@ -6,51 +6,80 @@ const { Op } = require("sequelize");
 const router = express.Router();
 
 router.get("/view", authenticateToken, async (req, res) => {
-  const { username } = req;
-  const user = await db.User.findOne({
-    where: { username },
-    include: {
-      model: db.Recipe,
-      include: db.Ingredient,
+  const userRecipes = await db.Recipe.findAll({
+    where: {
+      authorId: req.user.id
     },
+    include: db.Ingredient
   });
-  const dbRecipes = user.dataValues.Recipes;
-  const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
-  console.log(recipes);
-  const titles = recipes.map((el) => ({
+
+  const titles = userRecipes.map((el) => ({
     title: el.title,
     id: el.id,
   }));
 
-  const instructions = JSON.parse(recipes[2].instructions);
-  console.log(instructions);
+  // Selected recipe
+  const dbRecipe = userRecipes[0];
+  
+  const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
+    const {name} = el.dataValues;
+    const {quantity, measurement} = el.dataValues.RecIng.dataValues;
+    return {name, quantity, measurement};
+  });
+  
   const json = {
-    title: titles,
-    recipe: recipes[2],
-    instructions: instructions,
+    titles,
+    recipe: {
+      title: dbRecipe.title,
+      ingredients,
+      instructions: dbRecipe.instructions,
+    },
   };
-  console.log(json);
-  //front end event send id to refrence/ get recipes for id middleware/ api route to get id
   res.render("recipes", json);
 });
 router.get("/recipe/:recipeId", authenticateToken, async (req, res) => {
-  const { recipeId } = req.params;
-  console.log(req.params);  
-  const user = await db.User.findOne({ where: { username: req.username } });
+  const { user } = req;
+  const { recipeId } = req.params; 
 
-  const recipe = await db.Recipe.findOne({
+  const userRecipes = await db.Recipe.findAll({
+    where: {
+      authorId: req.user.id
+    },
+    include: db.Ingredient
+  });
+  const titles = userRecipes.map(el => ({
+    title: el.dataValues.title,
+    id: el.dataValues.id,
+  }));
+  
+  const dbRecipe = await db.Recipe.findOne({
     where: {
       [Op.and]: [
         { id: recipeId },
         { [Op.or]: [
-          {authorId: user.dataValues.id},
+          {authorId: user.id},
           {isPublic: true}
         ] }
       ]
-    }
+    },
+    include: db.Ingredient,
   });
-  console.log(recipe);
-  res.status(200).end();
+
+  const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
+    const {name} = el.dataValues;
+    const {quantity, measurement} = el.dataValues.RecIng.dataValues;
+    return {name, quantity, measurement}
+  });
+
+  const json = {
+    titles,
+    recipe: {
+      title: dbRecipe.dataValues.title,
+      ingredients,
+      instructions: dbRecipe.instructions
+    }, 
+  }
+  res.render("recipes", json);
 });
 router.get("/", authenticateToken, (req, res) => {
   res.render("menu", {});

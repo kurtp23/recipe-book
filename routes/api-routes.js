@@ -21,16 +21,14 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.post('/api/signUp', (req, res) => {
+router.post('/api/signUp', async (req, res) => {
   const { username, password } = req.body;
-  db.User.create({
-    username: req.body.username,
-    password: req.body.password,
-  }).then((user) => {
-    // We have access to the new todo as an argument inside of the callback function
-
-    res.json(user);
+  const [user, created] = await db.User.findOrCreate({
+    where: { username },
+    defaults: { password },
   });
+  const message = created ? "User has already been created!" : "New user created";
+  res.json({ message });
 });
 
 router.post("/api/addRecipe", authenticateToken, async (req, res) => {

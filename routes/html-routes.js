@@ -14,22 +14,19 @@ router.get("/view", authenticateToken, async (req, res) => {
     },
   });
   const dbRecipes = user.dataValues.Recipes;
-
   const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
   console.log(recipes);
   const titles = recipes.map((el) => ({
     title: el.title,
     id: el.id,
   }));
-  // console.log(recipes[0].Ingredients[0].dataValues.name);
-  //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.quantity);
-  //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.measurement);
-  const instructions = JSON.parse(recipes[0].instructions);
-  //console.log(instructions);
+
+  const instructions = JSON.parse(recipes[2].instructions);
+  console.log(instructions);
   const json = {
     title: titles,
-    recipe: recipes[0],
-    instructions: JSON.parse(instructions),
+    recipe: recipes[2],
+    instructions: instructions,
   };
   console.log(json);
   //front end event send id to refrence/ get recipes for id middleware/ api route to get id

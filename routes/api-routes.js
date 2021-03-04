@@ -48,7 +48,7 @@ router.post("/api/addRecipe", authenticateToken, async (req, res) => {
 
   const newRec = await db.Recipe.create({
     title: name,
-    instructions: JSON.stringify(instructionsArr),
+    instructions: instructionsArr,
     authorId: userId,
   });
 

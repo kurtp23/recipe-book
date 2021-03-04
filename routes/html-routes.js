@@ -99,8 +99,53 @@ router.get("/testAuth", authenticateToken, (req, res) => {
 router.get("/test", (req, res) => {
   res.render("test", {});
 });
-router.get("/authenticate", (req, res) => {
-  res.render("authenticate", {});
-});
+router.get("/search/:keyword", authenticateToken, async (req, res) => {
+  const { keyword } = req.params;
+  const userSearch = await db.User.findAll({
+    where: { username: { [Op.substring]: keyword } },
+    include: db.Recipe,
+  });
+  const ingredientSearch = await db.Ingredient.findAll({
+    where: { name: { [Op.substring]: keyword } },
+    include: db.Recipe,
+  });
+
+  let rawResults = [];
+
+  userSearch.forEach(el =>
+    el.dataValues.Recipes.forEach(re => rawResults.push(re.id))
+  );
+  ingredientSearch.forEach(el =>
+    el.dataValues.Recipes.forEach(re => rawResults.push(re.id))
+  );
+
+  rawResults.sort();
+
+  let results = rawResults.length ? [rawResults[0]] : [];
+  for (let i = 1; i < rawResults.length; i++) {
+    if (results[i] !== results[i-1])
+      results.push(results[i])
+  }
+
+  const recipeSearch = await db.Recipe.findAll({
+    attributes: ['title'],
+    where: {
+      [Op.or]: [
+      {
+        [Op.and]: [
+          { title: { [Op.substring]: keyword } },
+          { [Op.or]: [{ isPublic: true }, { authorId: req.user.id }] }
+        ]
+      },
+      {
+        [Op.and]: [
+          { id: results },
+          { [Op.or]: [{ isPublic: true }, { authorId: req.user.id }] }
+        ]
+      }]
+    }
+  });
+  console.log(`recipeSearch: ${JSON.stringify(recipeSearch)}`);
+})
 
 module.exports = router;

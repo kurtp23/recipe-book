@@ -1,10 +1,9 @@
-const express = require('express');
-const authenticateToken = require('../auth/middleware/authenticateToken');
-const db = require('../models');
+const express = require("express");
+const authenticateToken = require("../auth/middleware/authenticateToken");
+const db = require("../models");
 
 const router = express.Router();
 
-<<<<<<< HEAD
 router.get("/view", authenticateToken, async (req, res) => {
   const { username } = req;
   const user = await db.User.findOne({
@@ -22,68 +21,41 @@ router.get("/view", authenticateToken, async (req, res) => {
     title: el.title,
     id: el.id,
   }));
-  console.log(titles);
-
-  res.render("recipes", { titles, recipe: recipes[0] });
+  // console.log(recipes[0].Ingredients[0].dataValues.name);
+  //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.quantity);
+  //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.measurement);
+  const instructions = JSON.parse(recipes[0].instructions);
+  //console.log(instructions);
+  const json = {
+    title: titles,
+    recipe: recipes[0],
+    instructions: JSON.parse(instructions),
+  };
+  console.log(json);
+  //front end event send id to refrence/ get recipes for id middleware/ api route to get id
+  res.render("recipes", json);
 });
 router.get("/recipe/:id");
 router.get("/", authenticateToken, (req, res) => {
   res.render("menu", {});
-=======
-router.get('/view', (req, res) => {
-  // db.RecIng.findAll({
-  //   where: {
-  //     recId: recipe.id,
-  //   },
-  // });
-
-  Promise.all([db.Recipe.findAll({}), db.Ingredient.findAll({})]).then((values) => {
-    const recipes = values[0].map((el) => el.dataValues.title);
-    const instructions = values[0].map((el) => el.dataValues.instructions);
-    const ingredients = values[1].map((el) => el.dataValues.ingredient);
-    // console.log(recipes);
-    // console.log(recipes[2]);
-    // console.log(JSON.parse(instructions[2]));
-    // console.log(JSON.parse(ingredients[1]));
-    // db.Ingredient.get();
-    const json = {
-      recipes: [{ name: 'q' }, { name: 'w' }, { name: 'e' }],
-      recipe: {
-        name: 'Chicken Tikka Masala',
-        instructions: ['Let simmer until coooked'],
-        ingredients: ['chicken'],
-      },
-    };
-
-    res.render('recipes', json);
-  });
 });
-router.get('/', authenticateToken, (req, res) => {
-  res.render('menu', {});
->>>>>>> main
+router.get("/login", (req, res) => {
+  res.render("login", {});
 });
-router.get('/login', (req, res) => {
-  res.render('login', {});
+router.get("/signUp", (req, res) => {
+  res.render("newUser", {});
 });
-router.get('/signUp', (req, res) => {
-  res.render('newUser', {});
-});
-<<<<<<< HEAD
 router.get("/newRecipe", authenticateToken, (req, res) => {
   res.render("add", {});
-=======
-router.get('/newRecipe', (req, res) => {
-  res.render('add', {});
->>>>>>> main
 });
-router.get('/testAuth', authenticateToken, (req, res) => {
-  res.render('testAuth', {});
+router.get("/testAuth", authenticateToken, (req, res) => {
+  res.render("testAuth", {});
 });
-router.get('/test', (req, res) => {
-  res.render('test', {});
+router.get("/test", (req, res) => {
+  res.render("test", {});
 });
-router.get('/authenticate', (req, res) => {
-  res.render('authenticate', {});
+router.get("/authenticate", (req, res) => {
+  res.render("authenticate", {});
 });
 
 module.exports = router;

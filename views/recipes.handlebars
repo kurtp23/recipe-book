@@ -1,7 +1,10 @@
+<link rel="stylesheet" href="../public/css/recipes.css" />
+
 <nav>
   <div class="nav-wrapper orange darken-1">
 
-    <a href="#!" class="brand-logo"><i class="material-icons">book</i>RecipeBook</a>
+    <div id="logo" class="logo brand-logo"><i class="small material-icons">book</i>RecipeBook</div>
+
     <ul class="right hide-on-med-and-down">
       <li><a href="/newRecipe">Add</a></li>
       <li><a class=" white-text" href="/">Menu</a></li>
@@ -38,7 +41,7 @@
     </div>
     
   </div>
-  <div class="col s9 blue white-text">
+  {{!-- <div class="col s9 blue white-text">
     <h1>{{recipe.title}}</h1>
     <h3>Ingredients</h3>
     <ul>
@@ -56,12 +59,14 @@
       </li>
       {{/each}}
     </ul>
-  </div>
+  </div> --}}
+
   <div class="container recipe-page">
     <div class="col">
-      {{!-- <h1>{{recipe.name}}</h1> --}}
-      {{!-- <h2>Chiken Tikka Masala</h1>
-        <h4>Ingredients</h3>
+      <h1>{{recipe.name}}</h1>
+
+      <h1 class="recipe-title"><i class="medium material-icons">book</i>Chiken Tikka Masala</h1>
+      <h4>Ingredients</h3>
           <ul>
             {{#each ingredient}}
             <li>

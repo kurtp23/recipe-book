@@ -1,3 +1,11 @@
 .container {
     margin-left: 1rem;
 };
+
+.logo {
+    font-family: 'Raleway', sans-serif;
+}
+
+.recipe-title {
+    font-family: 'Raleway', sans-serif;
+}

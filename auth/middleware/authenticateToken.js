@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { privateKey } = require('../../config/auth.json');
+const db = require('../../models');
 
 module.exports = (req, res, next) => {
   // const auth = req.headers.authorization;
@@ -9,9 +10,9 @@ module.exports = (req, res, next) => {
   const token = accessToken && accessToken.split(' ')[1];
   if (!token) res.redirect('/login');
 
-  jwt.verify(token, privateKey, (err, user) => {
+  jwt.verify(token, privateKey, async (err, user) => {
     if (err) return res.status(401).end();
-    req.username = user.username;
+    req.user = await db.User.findOne({ where: { username: user.username } });
     next();
   });
 };

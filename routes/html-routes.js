@@ -26,12 +26,18 @@ router.get("/view", authenticateToken, async (req, res) => {
   //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.measurement);
   // const instructions = JSON.parse(recipes[0].instructions);
   //console.log(instructions);
+
   const json = {
-    title: titles,
-    recipe: recipes[0],
-    // Commented out for now to run code.
-    // instructions: JSON.parse(instructions),
+    title: 'Chicken Tikka Masala',
+    recipe: 'Chicken',
+    instructions: 'Let simmer until cooked',
   };
+
+  // const json = {
+  //   title: titles,
+  //   recipe: recipes[0],
+  //   instructions: JSON.parse(instructions),
+  // };
   console.log(json);
   //front end event send id to refrence/ get recipes for id middleware/ api route to get id
   res.render("recipes", json);

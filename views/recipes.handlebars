@@ -1,11 +1,14 @@
 <nav>
   <div class="nav-wrapper orange darken-1">
 
-    <a href="#!" class="brand-logo"><i class="material-icons">book</i>myCookbook</a>
+    <a href="#!" class="brand-logo"><i class="material-icons">book</i>RecipeBook</a>
     <ul class="right hide-on-med-and-down">
       <li><a href="/newRecipe">Add</a></li>
+      <li><a class=" white-text" href="/">Menu</a></li>
       <li><a class="" href="/login">Exit</a></li>
     </ul>
+
+    {{!-- Previous search bar --}}
     {{!-- <form>
       <div class="input-field">
         <input id="search" type="search" required />
@@ -14,6 +17,7 @@
         <i class="material-icons">close</i>
       </div>
     </form> --}}
+
     <ul class="right hide-on-med-and-down"></ul>
   </div>
 </nav>
@@ -32,7 +36,7 @@
       <a href="" id={{this.id}} class="collection-item blue-text">{{this.title}}</a>
       {{/each}}
     </div>
-    <p><a class=" white-text" href="/">Menu</a></p>
+    
   </div>
   <div class="col s9 blue white-text">
     <h1>{{recipe.title}}</h1>

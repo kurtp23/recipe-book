@@ -1,6 +1,7 @@
 const express = require("express");
 const authenticateToken = require("../auth/middleware/authenticateToken");
 const db = require("../models");
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -35,7 +36,25 @@ router.get("/view", authenticateToken, async (req, res) => {
   //front end event send id to refrence/ get recipes for id middleware/ api route to get id
   res.render("recipes", json);
 });
-router.get("/recipe/:id");
+router.get("/recipe/:recipeId", authenticateToken, async (req, res) => {
+  const { recipeId } = req.params;
+  console.log(req.params);  
+  const user = await db.User.findOne({ where: { username: req.username } });
+
+  const recipe = await db.Recipe.findOne({
+    where: {
+      [Op.and]: [
+        { id: recipeId },
+        { [Op.or]: [
+          {authorId: user.dataValues.id},
+          {isPublic: true}
+        ] }
+      ]
+    }
+  });
+  console.log(recipe);
+  res.status(200).end();
+});
 router.get("/", authenticateToken, (req, res) => {
   res.render("menu", {});
 });

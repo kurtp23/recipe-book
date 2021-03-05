@@ -13,6 +13,10 @@ router.get("/view", authenticateToken, async (req, res) => {
     include: db.Ingredient
   });
 
+  if (!userRecipes) {
+    return res.render("error", { message: "You have not created any recipe" });
+  }
+
   const titles = userRecipes.map((el) => ({
     title: el.title,
     id: el.id,
@@ -20,6 +24,7 @@ router.get("/view", authenticateToken, async (req, res) => {
 
   // Selected recipe
   const dbRecipe = userRecipes[0];
+  
   
   const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
     const {name} = el.dataValues;
@@ -64,6 +69,10 @@ router.get("/recipe/:recipeId", authenticateToken, async (req, res) => {
     },
     include: db.Ingredient,
   });
+
+  if (!dbRecipe) {
+    return res.render("error", { message: "Recipe does not exist or is set to private" });
+  }
 
   const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
     const {name} = el.dataValues;

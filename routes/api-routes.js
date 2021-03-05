@@ -7,13 +7,14 @@ const validateLogin = require("../auth/validateLogin");
 const router = express.Router();
 
 router.post("/login", (req, res) => {
+  res.clearCookie("access_token");
   const { username, password } = req.body;
   validateLogin({ username, password })
     .then((token) => {
       res.cookie("access_token", `Bearer ${token}`, {
         expires: new Date(Date.now() + timeout * 1000),
       });
-      res.redirect("/");
+      res.status(200).end();
     })
     .catch((err) => {
       console.log(err);

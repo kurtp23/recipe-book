@@ -159,4 +159,8 @@ router.get("/search/:keyword", authenticateToken, async (req, res) => {
   res.render("search", { titles });
 });
 
+router.get("*", (req, res) => {
+  res.render("error", {message: "Page Not Found"});
+})
+
 module.exports = router;

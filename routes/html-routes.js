@@ -7,13 +7,11 @@ const router = express.Router();
 
 router.get("/view", authenticateToken, async (req, res) => {
   const userRecipes = await db.Recipe.findAll({
-    where: {
-      authorId: req.user.id
-    },
+    where: { authorId: req.user.id },
     include: db.Ingredient
   });
 
-  if (!userRecipes) {
+  if (!userRecipes.length) {
     return res.render("error", { message: "You have not created any recipe" });
   }
 
@@ -24,7 +22,6 @@ router.get("/view", authenticateToken, async (req, res) => {
 
   // Selected recipe
   const dbRecipe = userRecipes[0];
-  
   
   const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
     const {name} = el.dataValues;

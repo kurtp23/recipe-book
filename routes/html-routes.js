@@ -1,48 +1,86 @@
 const express = require("express");
 const authenticateToken = require("../auth/middleware/authenticateToken");
 const db = require("../models");
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
 router.get("/view", authenticateToken, async (req, res) => {
-  const { username } = req;
-  const user = await db.User.findOne({
-    where: { username },
-    include: {
-      model: db.Recipe,
-      include: db.Ingredient,
+  const userRecipes = await db.Recipe.findAll({
+    where: {
+      authorId: req.user.id
     },
+    include: db.Ingredient
   });
-  const dbRecipes = user.dataValues.Recipes;
 
-  const recipes = dbRecipes.map((dbRecipe) => dbRecipe.dataValues);
-  console.log(recipes);
-  const titles = recipes.map((el) => ({
+  const titles = userRecipes.map((el) => ({
     title: el.title,
     id: el.id,
   }));
-  // console.log(recipes[0].Ingredients[0].dataValues.name);
-  //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.quantity);
-  //console.log(recipes[0].Ingredients[0].dataValues.RecIng.dataValues.measurement);
-  // const instructions = JSON.parse(recipes[0].instructions);
-  //console.log(instructions);
 
+  // Selected recipe
+  const dbRecipe = userRecipes[0];
+  
+  const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
+    const {name} = el.dataValues;
+    const {quantity, measurement} = el.dataValues.RecIng.dataValues;
+    return {name, quantity, measurement};
+  });
+  
   const json = {
-    title: 'Chicken Tikka Masala',
-    recipe: 'Chicken',
-    instructions: 'Let simmer until cooked',
+    titles,
+    recipe: {
+      title: dbRecipe.title,
+      ingredients,
+      instructions: dbRecipe.instructions,
+    },
   };
-
-  // const json = {
-  //   title: titles,
-  //   recipe: recipes[0],
-  //   instructions: JSON.parse(instructions),
-  // };
-  console.log(json);
-  //front end event send id to refrence/ get recipes for id middleware/ api route to get id
   res.render("recipes", json);
 });
-router.get("/recipe/:id");
+router.get("/recipe/:recipeId", authenticateToken, async (req, res) => {
+  const { user } = req;
+  const { recipeId } = req.params; 
+
+  const userRecipes = await db.Recipe.findAll({
+    where: {
+      authorId: req.user.id
+    },
+    include: db.Ingredient
+  });
+  const titles = userRecipes.map(el => ({
+    title: el.dataValues.title,
+    id: el.dataValues.id,
+  }));
+  
+  const dbRecipe = await db.Recipe.findOne({
+    where: {
+      [Op.and]: [
+        { id: recipeId },
+        { [Op.or]: [
+          {authorId: user.id},
+          {isPublic: true}
+        ] }
+      ]
+    },
+    include: db.Ingredient,
+  });
+
+  const ingredients = dbRecipe.dataValues.Ingredients.map(el => {
+    const {name} = el.dataValues;
+    const {quantity, measurement} = el.dataValues.RecIng.dataValues;
+    return {name, quantity, measurement}
+  });
+
+  const json = {
+    titles,
+    recipe: {
+      title: dbRecipe.dataValues.title,
+      ingredients,
+      instructions: dbRecipe.instructions
+    }, 
+  }
+  res.render("recipes", json);
+});
 router.get("/", authenticateToken, (req, res) => {
   res.render("menu", {});
 });
@@ -61,8 +99,53 @@ router.get("/testAuth", authenticateToken, (req, res) => {
 router.get("/test", (req, res) => {
   res.render("test", {});
 });
-router.get("/authenticate", (req, res) => {
-  res.render("authenticate", {});
-});
+router.get("/search/:keyword", authenticateToken, async (req, res) => {
+  const { keyword } = req.params;
+  const userSearch = await db.User.findAll({
+    where: { username: { [Op.substring]: keyword } },
+    include: db.Recipe,
+  });
+  const ingredientSearch = await db.Ingredient.findAll({
+    where: { name: { [Op.substring]: keyword } },
+    include: db.Recipe,
+  });
+
+  let rawResults = [];
+
+  userSearch.forEach(el =>
+    el.dataValues.Recipes.forEach(re => rawResults.push(re.id))
+  );
+  ingredientSearch.forEach(el =>
+    el.dataValues.Recipes.forEach(re => rawResults.push(re.id))
+  );
+
+  rawResults.sort();
+
+  let results = rawResults.length ? [rawResults[0]] : [];
+  for (let i = 1; i < rawResults.length; i++) {
+    if (results[i] !== results[i-1])
+      results.push(results[i])
+  }
+
+  const recipeSearch = await db.Recipe.findAll({
+    attributes: ['title'],
+    where: {
+      [Op.or]: [
+      {
+        [Op.and]: [
+          { title: { [Op.substring]: keyword } },
+          { [Op.or]: [{ isPublic: true }, { authorId: req.user.id }] }
+        ]
+      },
+      {
+        [Op.and]: [
+          { id: results },
+          { [Op.or]: [{ isPublic: true }, { authorId: req.user.id }] }
+        ]
+      }]
+    }
+  });
+  console.log(`recipeSearch: ${JSON.stringify(recipeSearch)}`);
+})
 
 module.exports = router;

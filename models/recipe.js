@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
         this.setDataValue('instructions', JSON.stringify(value));
       },
     },
+    isPublic: {
+        type: DataTypes.BOOLEAN,
+    }
   });
   Recipe.associate = (db) => {
     Recipe.belongsToMany(db.Ingredient, { through: db.RecIng });

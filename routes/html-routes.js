@@ -129,12 +129,12 @@ router.get("/search/:keyword", authenticateToken, async (req, res) => {
 
   let results = rawResults.length ? [rawResults[0]] : [];
   for (let i = 1; i < rawResults.length; i++) {
-    if (results[i] !== results[i-1])
-      results.push(results[i])
+    if (rawResults[i] !== rawResults[i-1])
+      results.push(rawResults[i])
   }
 
   const recipeSearch = await db.Recipe.findAll({
-    attributes: ['title'],
+    attributes: ['title', 'id'],
     where: {
       [Op.or]: [
       {
@@ -151,7 +151,13 @@ router.get("/search/:keyword", authenticateToken, async (req, res) => {
       }]
     }
   });
+  const titles = recipeSearch.map(el => ({
+    title: el.title,
+    id: el.id,
+  }));
+  console.log(`titles: ${titles}`);
   console.log(`recipeSearch: ${JSON.stringify(recipeSearch)}`);
-})
+  res.render("search", { titles });
+});
 
 module.exports = router;

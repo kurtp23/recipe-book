@@ -5,6 +5,10 @@ body {
   margin-top: 100px;
 }
 
+a {
+  color: darkgoldenrod;
+}
+
 .home-div {
   background-color: red;
   width: 500px;
@@ -21,3 +25,12 @@ body {
 .buttons {
   background-color: violet;
 }
+
+#loginBtn {
+  margin-bottom: 1rem;
+}
+
+#addUser {
+  margin-bottom: 1rem;
+}
+

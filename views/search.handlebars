@@ -1,0 +1,27 @@
+<nav>
+        <div class="nav-wrapper yellow darken-2">
+      
+          <div id="logo" class="logo brand-logo"><i class="small material-icons">book</i>RecipeBook</div>
+      
+          <ul class="right hide-on-med-and-down">
+            <li><a href="/newRecipe">Add</a></li>
+            <li><a class=" white-text" href="/">Menu</a></li>
+            <li><a class="" href="/login">Exit</a></li>
+          </ul>
+          <ul class="right hide-on-med-and-down"></ul>
+        </div>
+      </nav>
+
+    <link rel="stylesheet" href="../css/recipes.css" />
+
+<div class="container">
+    <h1>Results</h1>
+    <div class="collection search-results">
+        {{#each titles}}
+        <a href="/recipe/{{this.id}}" id={{this.id}} class="collection-item black-text">{{this.title}}</a>
+        {{/each}}
+      </div>
+</div>
+
+<script src="/js/recipes.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

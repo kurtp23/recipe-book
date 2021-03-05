@@ -7,13 +7,14 @@ const validateLogin = require("../auth/validateLogin");
 const router = express.Router();
 
 router.post("/login", (req, res) => {
+  res.clearCookie("access_token");
   const { username, password } = req.body;
   validateLogin({ username, password })
     .then((token) => {
       res.cookie("access_token", `Bearer ${token}`, {
         expires: new Date(Date.now() + timeout * 1000),
       });
-      res.redirect("/");
+      res.status(200).end();
     })
     .catch((err) => {
       console.log(err);
@@ -23,12 +24,11 @@ router.post("/login", (req, res) => {
 
 router.post('/api/signUp', async (req, res) => {
   const { username, password } = req.body;
-  const [user, created] = await db.User.findOrCreate({
+  const [user, isCreated] = await db.User.findOrCreate({
     where: { username },
     defaults: { password },
   });
-  const message = created ? "User has already been created!" : "New user created";
-  res.json({ message });
+  res.json({ isCreated }).end();
 });
 
 router.post("/api/addRecipe", authenticateToken, async (req, res) => {

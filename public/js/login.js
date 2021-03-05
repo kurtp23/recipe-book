@@ -1,8 +1,6 @@
 const loginBtn = document.getElementById('loginBtn');
-// addUser.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   console.log(newUser.value);
-// });
+const errorMsg = document.getElementById('errorMsg');
+
 loginBtn.addEventListener('click', (event) => {
   event.preventDefault();
 
@@ -14,5 +12,12 @@ loginBtn.addEventListener('click', (event) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ username, password }),
-  }).then(() => { window.location.replace('/'); });
+  }).then((response) => {
+    if (response.status === 200)
+      window.location.replace('/');
+    else {
+      errorMsg.textContent = "Wrong Credentials!";
+      errorMsg.style.display = "block";
+    }
+  });
 });

@@ -16,8 +16,7 @@ loginBtn.addEventListener('click', (event) => {
     if (response.status === "200")
       window.location.replace('/');
     else {
-      const msgBody = document.createTextNode("Wrong Credentials!");
-      errorMsg.appendChild(msgBody);
+      errorMsg.textContent = "Wrong Credentials!";
       errorMsg.style.display = "block";
     }
   });

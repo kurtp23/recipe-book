@@ -1,74 +1,86 @@
 <!-- <div class="card large"> -->
-<link rel="stylesheet" href="../css/home.css" />
+<link rel="stylesheet" href="../css/add.css" />
 {{!-- add error message if view is empty --}}
 
-<div id="card-content" class="card-content center-align">
-      <div id="logo" class="logo brand-logo"><i class="small material-icons">book</i>RecipeBook</div>
-  
-</div>
+<!-- nav bar -->
+<nav>
+  <div class="nav-wrapper yellow darken-2">
 
-<div class="card-content center-align">
-  <h4>Add Recipe</h4>
-  <span class="card-title activator grey-text text-darken-4"> </span>
-  <div id="instDiv">
-    <div class="input-field col s6">
-      <input value="Soup" id="recipe-name" type="text" class="validate" />
-      <label class="active">Recipe Name</label>
-      <a id="addName" class="waves-effect waves-light btn-large yellow darken-2">Add Recipe name</a>
+    <div id="logo" class="logo brand-logo"><i class="material-icons">book</i>RecipeBook</div>
+
+    <ul class="right hide-on-med-and-down">
+      <li><a href="/view">Recipes</a></li>
+      <li><a class=" white-text" href="/">Menu</a></li>
+      <li><a class="" href="/login">Exit</a></li>
+    </ul>
+    <ul class="right hide-on-med-and-down"></ul>
+  </div>
+</nav>
+<!-- nav bar -->
+
+
+<div class="container">
+  <div class="card-content center-align">
+    <h4>Add Recipe</h4>
+    <span class="card-title activator grey-text text-darken-4"> </span>
+    <div id="instDiv">
+      <div class="input-field col s6">
+        <input value="Soup" id="recipe-name" type="text" class="validate" />
+        <label class="active">Recipe Name</label>
+        <a id="addName" class="waves-effect waves-light btn-large yellow darken-2">Add Recipe name</a>
+      </div>
+      <div class="row">
+        <div class="input-field col s3">
+          <input value="" id="amount" type="text" class="validate" />
+          <label class="active">Quantity</label>
+        </div>
+        <div class="input-field col s3">
+          <input value="" id="measure" type="text" class="validate" />
+          <label class="active">Measurement</label>
+        </div>
+        <div class="input-field col s6">
+          <input value="" id="ingredient" type="text" class="validate" />
+          <label class="active">Ingredients</label>
+        </div>
+        <a id="addIngredient" class="waves-effect waves-light btn-large yellow darken-2">Add Ingredient</a>
+
+      </div>
+      <div class=" center-align">
+        <div class="input-field col s6 center-align">
+          <input value="" id="instruction" type="text" class="validate" />
+          <label class="active">Instruction</label>
+          <a id="addInstruction" class="waves-effect waves-light btn-large yellow darken-2">Add Instruction</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ">
+      <h3 id="recipeName"></h3>
+      <div class="col s6 center-align">
+        <ul id="listIng">
+          <h4 class="card-content center-align">Ingredients</h4>
+        </ul>
+      </div>
+      <div class="col s6 center-align">
+        <ul id="listInst">
+          <h4 class="card-content center-align">Instructions</h4>
+        </ul>
+      </div>
     </div>
     <div class="row">
-      <div class="input-field col s3">
-        <input value="" id="amount" type="text" class="validate" />
-        <label class="active">Quantity</label>
-      </div>
-      <div class="input-field col s3">
-        <input value="" id="measure" type="text" class="validate" />
-        <label class="active">Measurement</label>
-      </div>
-      <div class="input-field col s6">
-        <input value="" id="ingredient" type="text" class="validate" />
-        <label class="active">Ingredients</label>
-      </div>
-      <a id="addIngredient" class="waves-effect waves-light btn-large yellow darken-2">Add Ingredient</a>
-
-    </div>
-    <div class=" center-align">
-      <div class="input-field col s6 center-align">
-        <input value="Instruction" id="instruction" type="text" class="validate" />
-        <label class="active">Instruction</label>
-        <a id="addInstruction" class="waves-effect waves-light btn-large yellow darken-2">Add Instruction</a>
-      </div>
+      <p>
+        <label>
+          <input id= "makePublic" type="checkbox" />
+          <span>Visible to Everyone</span>
+        </label>
+      </p>
     </div>
   </div>
 
-  <div class="row ">
-    <h3 id="recipeName"></h3>
-    <div class="col s6 center-align">
-      <ul id="listIng">
-        <h4 class="card-content center-align">Ingredients</h4>
-      </ul>
-    </div>
-    <div class="col s6 center-align">
-      <ul id="listInst">
-        <h4 class="card-content center-align">Instructions</h4>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
-    <p>
-      <label>
-        <input id= "makePublic" type="checkbox" />
-        <span>Visible to Everyone</span>
-      </label>
-    </p>
-  </div>
-</div>
-
-<div class="card-content center-align">
-  <a id="save" class="waves-effect waves-light btn-large yellow darken-2">Save Recipe</a>
-  <p><a href="/">Menu</a></p>
-</div>
-<!-- </div> -->
+  <div class="card-content center-align">
+    <a id="save" class="waves-effect waves-light btn-large yellow darken-2">Save Recipe</a>
+    <p><a href="/">Menu</a></p>
+  </div> <!-- container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="/js/add.js"></script>

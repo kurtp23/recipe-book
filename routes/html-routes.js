@@ -155,8 +155,7 @@ router.get("/search/:keyword", authenticateToken, async (req, res) => {
     title: el.title,
     id: el.id,
   }));
-  console.log(`titles: ${titles}`);
-  console.log(`recipeSearch: ${JSON.stringify(recipeSearch)}`);
+
   res.render("search", { titles });
 });
 

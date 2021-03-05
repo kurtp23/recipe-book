@@ -9,7 +9,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.JAWSDB_URL || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 
 const db = {};

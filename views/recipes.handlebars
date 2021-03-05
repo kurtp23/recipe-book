@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="../public/css/recipes.css" />
+<link rel="stylesheet" href="../css/recipes.css" />
 
 <nav>
-  <div class="nav-wrapper orange darken-1">
+  <div class="nav-wrapper yellow darken-2">
 
     <div id="logo" class="logo brand-logo"><i class="small material-icons">book</i>RecipeBook</div>
 
@@ -10,23 +10,12 @@
       <li><a class=" white-text" href="/">Menu</a></li>
       <li><a class="" href="/login">Exit</a></li>
     </ul>
-
-    {{!-- Previous search bar --}}
-    {{!-- <form>
-      <div class="input-field">
-        <input id="search" type="search" required />
-        <label class="label-icon black-text" for="search" value="Search for a Recipe"><i
-            class="material-icons"></i></label>
-        <i class="material-icons">close</i>
-      </div>
-    </form> --}}
-
     <ul class="right hide-on-med-and-down"></ul>
   </div>
 </nav>
 
 <div class="row ">
-  <div class="col yellow darken-2 side-nav">
+  <div class="col side-nav">
     <form>
       <div class="input-field">
         <input id="search" type="search" required>
@@ -36,12 +25,15 @@
     </form>
     <div class="collection">
       {{#each titles}}
-      <a href="" id={{this.id}} class="collection-item blue-text">{{this.title}}</a>
+      <a href="/recipe/{{this.id}}" id={{this.id}} class="collection-item black-text">{{this.title}}</a>
       {{/each}}
     </div>
-    
-  </div>
-  {{!-- <div class="col s9 blue white-text">
+      </div>
+
+
+  <div class="container recipe-page">
+
+      <div class="col s9">
     <h1>{{recipe.title}}</h1>
     <h3>Ingredients</h3>
     <ul>
@@ -59,39 +51,10 @@
       </li>
       {{/each}}
     </ul>
-  </div> --}}
-
-  <div class="container recipe-page">
-    <div class="col">
-      <h1>{{recipe.name}}</h1>
-
-      <h1 class="recipe-title"><i class="medium material-icons">book</i>Chiken Tikka Masala</h1>
-      <h4>Ingredients</h3>
-          <ul>
-            {{#each ingredient}}
-            <li>
-              {{this.ingridientName}}
-            </li>
-            {{/each}}
-            <li>Chicken</li>
-            <li>Tikka</li>
-            <li>Masala</li>
-          </ul>
-
-          <h4>Instructions</h3>
-            <ul>
-              {{#each instructions}}
-              <li>
-                {{this.instructionName}}
-              </li>
-              {{/each}}
-              <li>Prepare</li>
-              <li>Cook</li>
-              <li>Eat</li>
-            </ul> --}}
-    </div>
   </div>
-  <!--containter-->
+
+    
+</div> <!--containter-->
 
 </div>
 

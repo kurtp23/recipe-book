@@ -26,10 +26,6 @@ a {
   background-color: violet;
 }
 
-#logo {
-  font-family: 'Raleway', sans-serif;
-}
-
 #loginBtn {
   margin-bottom: 1rem;
 }
@@ -37,3 +33,4 @@ a {
 #addUser {
   margin-bottom: 1rem;
 }
+

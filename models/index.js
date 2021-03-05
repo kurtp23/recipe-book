@@ -13,7 +13,10 @@ const env = process.env.NODE_ENV || 'development';
 const config = process.env.JAWSDB_URL ? (() => {
   console.log(process.env.JAWSDB_URL);
   return {...process.env.JAWSDB_URL, dialect: "mysql"}
-})() : require(__dirname + '/../config/config.json')[env];
+})() : (() => {
+  console.log("There is no process.env.JAWSDB_URL");
+  return require(__dirname + '/../config/config.json')[env]
+})();
 
 const db = {};
 

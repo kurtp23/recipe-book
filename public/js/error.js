@@ -1,5 +1,5 @@
-const goBack = document.getElementById('goBack');
+const backToMenu = document.getElementById('backToMenu');
 
-goBack.addEventListener('click', () => {
-    window.history.back();
+backToMenu.addEventListener('click', () => {
+    window.location.replace("/");
 })

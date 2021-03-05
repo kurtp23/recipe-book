@@ -13,7 +13,7 @@ loginBtn.addEventListener('click', (event) => {
     },
     body: JSON.stringify({ username, password }),
   }).then((response) => {
-    if (response.status === "200")
+    if (response.status === 200)
       window.location.replace('/');
     else {
       errorMsg.textContent = "Wrong Credentials!";

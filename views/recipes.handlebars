@@ -8,18 +8,20 @@
     <ul class="right hide-on-med-and-down">
       <li><a href="/newRecipe">Add</a></li>
       <li><a class=" white-text" href="/">Menu</a></li>
+      <li><a class="white-text" href="" onclick="printDiv('print-screen')">Print</a></li>
       <li><a class="" href="/login">Exit</a></li>
     </ul>
     <ul class="right hide-on-med-and-down"></ul>
   </div>
 </nav>
 
-<div class="row ">
+<div class="row search-bar">
   <div class="col s2 side-nav">
     <form>
       <div class="input-field">
+        <i class="material-icons prefix">search</i>
         <input id="search" type="search" required>
-        <label class="label-icon" for="search" id="searchBtn"><i class="material-icons">search</i></label>
+        <label class="label-icon" for="search" id="searchBtn"></label>
         <i class="material-icons">close</i>
       </div>
     </form>
@@ -31,26 +33,37 @@
       </div>
 
   
-  <div class="container col">
-    <div class="col recipe-card">
-      <div class="col s4">
-        <h1>{{recipe.title}}</h1>
-        <h3>Ingredients</h3>
-        <ul>
-          {{#each recipe.ingredients}}
-          <li>
-            {{this.quantity}} {{this.measurement}} {{this.name}}
-          </li>
-          {{/each}}
-        </ul>
-        <h3>Instructions</h3>
-        <ul>
-          {{#each recipe.instructions}}
-          <li>
-            {{this}}
-          </li>
-          {{/each}}
-        </ul>
+  <div  class="container col s10">
+
+    <div id="print-screen" class="col recipe-card s12">
+      <div class="col s12">
+        <h2 class="recipe-title">{{recipe.title}}</h2>
+
+        <div class="recipe-details"><!--recipe-details-->
+
+        <div class="ingredients">
+          <h4>Ingredients</h4>
+          <ul>
+            {{#each recipe.ingredients}}
+            <li>
+              {{this.quantity}} {{this.measurement}} {{this.name}}
+            </li>
+            {{/each}}
+          </ul>
+        </div> <!--ingredients-->
+
+        <div class="instructions">
+          <h4>Instructions</h4>
+          <ul>
+            {{#each recipe.instructions}}
+            <li>
+              {{this}}
+            </li>
+            {{/each}}
+          </ul>
+        </div> <!--instuctions-->
+      </div> <!--recipe-details-->
+
       </div> <!--recipe card-->
     </div> <!--recipe section-->
   </div> <!--containter-->

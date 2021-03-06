@@ -17,6 +17,7 @@ searchBtn.addEventListener('click', (event) => {
   window.location.replace(`/search/${searchString}`);
 });
 
+// Print recipe functionality
 function printDiv(divName) {
   const printContents = document.getElementById(divName).innerHTML;
   const originalContents = document.body.innerHTML;

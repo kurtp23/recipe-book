@@ -52,6 +52,8 @@
 
   If you have any questions about the repo, open an issue or contact us directly at:
   - E-Mail: 
+    * foktmalexander@gmail.com
+    * kurt_phillips@live.com
     * leon.luna.ray@gmail.com
   - GitHub: 
     * [alex-fok](https://github.com/alex-fok)

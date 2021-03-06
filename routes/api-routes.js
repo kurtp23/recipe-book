@@ -27,6 +27,7 @@ router.post('/api/signUp', async (req, res) => {
     where: { username },
     defaults: { password },
   });
+  res.clearCookie('access_token');
   res.json({ isCreated }).end();
 });
 

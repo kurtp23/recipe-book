@@ -34,25 +34,36 @@
 
   
   <div  class="container col s10">
+
     <div id="print-screen" class="col recipe-card s12">
       <div class="col s12">
-        <h1>{{recipe.title}}</h1>
-        <h3>Ingredients</h3>
-        <ul>
-          {{#each recipe.ingredients}}
-          <li>
-            {{this.quantity}} {{this.measurement}} {{this.name}}
-          </li>
-          {{/each}}
-        </ul>
-        <h3>Instructions</h3>
-        <ul>
-          {{#each recipe.instructions}}
-          <li>
-            {{this}}
-          </li>
-          {{/each}}
-        </ul>
+        <h2 class="recipe-title">{{recipe.title}}</h2>
+
+        <div class="recipe-details"><!--recipe-details-->
+
+        <div class="ingredients">
+          <h4>Ingredients</h4>
+          <ul>
+            {{#each recipe.ingredients}}
+            <li>
+              {{this.quantity}} {{this.measurement}} {{this.name}}
+            </li>
+            {{/each}}
+          </ul>
+        </div> <!--ingredients-->
+
+        <div class="instructions">
+          <h4>Instructions</h4>
+          <ul>
+            {{#each recipe.instructions}}
+            <li>
+              {{this}}
+            </li>
+            {{/each}}
+          </ul>
+        </div> <!--instuctions-->
+      </div> <!--recipe-details-->
+
       </div> <!--recipe card-->
     </div> <!--recipe section-->
   </div> <!--containter-->

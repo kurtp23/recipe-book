@@ -35,7 +35,6 @@ router.post('/api/addRecipe', authenticateToken, async (req, res) => {
   const {
     title, instructions, ingredients, isPublic,
   } = req.body;
-  console.log(title, instructions, ingredients, isPublic);
   const newRec = await db.Recipe.create({
     title,
     instructions,

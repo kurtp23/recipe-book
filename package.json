@@ -11,7 +11,11 @@
     "type": "git",
     "url": "git+https://github.com/kurtp23/recipe-book.git"
   },
-  "keywords": ["cooking", "cookbook", "recipes"],
+  "keywords": [
+    "cooking",
+    "cookbook",
+    "recipes"
+  ],
   "author": "Alexander Fok, Kurt Phillips, Ray Luna",
   "license": "ISC",
   "bugs": {

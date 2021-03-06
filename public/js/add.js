@@ -24,6 +24,10 @@ addName.addEventListener('click', (event) => {
   recName.textContent = rName.value;
   recipeName = rName.value;
   rName.value = '';
+
+  if (recCard.classList.contains('hide')) {
+    recCard.classList.remove('hide').classList.add('show');
+  }
 });
 
 addInst.addEventListener('click', (event) => {
@@ -34,6 +38,10 @@ addInst.addEventListener('click', (event) => {
   li.textContent = rInst.value;
   listInst.append(li);
   rInst.value = '';
+
+  if (recCard.classList.contains('hide')) {
+    recCard.classList.remove('hide').classList.add('show');
+  }
 });
 
 addIng.addEventListener('click', (event) => {
@@ -52,7 +60,9 @@ addIng.addEventListener('click', (event) => {
   measure.value = '';
   rIng.value = '';
 
-  recCard.classList.remove('hide').classList.add('show');
+  if (recCard.classList.contains('hide')) {
+    recCard.classList.remove('hide').classList.add('show');
+  }
 });
 
 save.addEventListener('click', (event) => {

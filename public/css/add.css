@@ -1,0 +1,11 @@
+.add-recipe {
+    margin: 3rem;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block; 
+}

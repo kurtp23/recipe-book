@@ -9,6 +9,7 @@ const rName = document.querySelector('#recipe-name');
 const rInst = document.querySelector('#instruction');
 const listIng = document.getElementById('listIng');
 const listInst = document.getElementById('listInst');
+const recCard = document.getElementById('recipeCard');
 const addName = document.getElementById('addName');
 const recName = document.getElementById('recipeName');
 const amount = document.getElementById('amount');
@@ -50,6 +51,8 @@ addIng.addEventListener('click', (event) => {
   amount.value = '';
   measure.value = '';
   rIng.value = '';
+
+  recCard.classList.remove('hide').classList.add('show');
 });
 
 save.addEventListener('click', (event) => {

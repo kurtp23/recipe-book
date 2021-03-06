@@ -26,7 +26,6 @@ addInst.addEventListener('click', (event) => {
   event.preventDefault();
 
   allInst.push(rInst.value);
-  console.log(allInst);
   const li = document.createElement('li');
   li.textContent = rInst.value;
   listInst.append(li);
@@ -34,14 +33,13 @@ addInst.addEventListener('click', (event) => {
 
 addIng.addEventListener('click', (event) => {
   event.preventDefault();
-  let ingredient = {
+  const ingredient = {
     name: rIng.value,
     quantity: amount.value,
     measurement: measure.value,
   };
 
   allIng.push(ingredient);
-  console.log(allIng);
   const li = document.createElement('li');
   li.textContent = `${amount.value} ${measure.value} ${rIng.value}`;
   listIng.append(li);
@@ -49,10 +47,6 @@ addIng.addEventListener('click', (event) => {
 
 save.addEventListener('click', (event) => {
   event.preventDefault();
-  console.log(rName.value);
-  console.log(allIng);
-  console.log(allInst);
-  console.log(makePublic.checked);
   fetch('/api/addRecipe', {
     method: 'POST',
     headers: {
@@ -62,7 +56,7 @@ save.addEventListener('click', (event) => {
       name: rName.value,
       instructions: allInst,
       ingredients: allIng,
-      isPublic: makePublic.checked
+      isPublic: makePublic.checked,
     }),
   });
 });

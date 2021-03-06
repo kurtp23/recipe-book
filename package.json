@@ -1,7 +1,7 @@
 {
   "name": "recipe-book",
   "version": "1.0.0",
-  "description": "",
+  "description": "An online recipe book to view sand save your favorite recipes.",
   "main": "server.js",
   "scripts": {
     "test": "nodemon server.js",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/kurtp23/recipe-book.git"
   },
-  "keywords": [],
+  "keywords": ["cooking", "cookbook", "recipes"],
   "author": "Alexander Fok, Kurt Phillips, Ray Luna",
   "license": "ISC",
   "bugs": {

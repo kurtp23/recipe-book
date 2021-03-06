@@ -16,10 +16,13 @@ const measure = document.getElementById('measure');
 const makePublic = document.getElementById('makePublic');
 const allIng = [];
 const allInst = [];
+let recipeName = '';
 
 addName.addEventListener('click', (event) => {
   event.preventDefault();
   recName.textContent = rName.value;
+  recipeName = rName.value;
+  rName.value = '';
 });
 
 addInst.addEventListener('click', (event) => {
@@ -29,6 +32,7 @@ addInst.addEventListener('click', (event) => {
   const li = document.createElement('li');
   li.textContent = rInst.value;
   listInst.append(li);
+  rInst.value = '';
 });
 
 addIng.addEventListener('click', (event) => {
@@ -43,6 +47,9 @@ addIng.addEventListener('click', (event) => {
   const li = document.createElement('li');
   li.textContent = `${amount.value} ${measure.value} ${rIng.value}`;
   listIng.append(li);
+  amount.value = '';
+  measure.value = '';
+  rIng.value = '';
 });
 
 save.addEventListener('click', (event) => {
@@ -53,7 +60,7 @@ save.addEventListener('click', (event) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: rName.value,
+      title: recipeName,
       instructions: allInst,
       ingredients: allIng,
       isPublic: makePublic.checked,

@@ -32,9 +32,13 @@
 }
 
 .add-ing {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
 }
 
 .add-inst {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+}
+
+.instruction {
+    margin-bottom: 10px;
 }

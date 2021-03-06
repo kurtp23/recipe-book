@@ -6,7 +6,6 @@ for (let i = 0; i < listBtn.length; i++) {
     (event) => {
       const btnId = this.getElementsByClassName("id").value;
       event.preventDefault();
-      console.log(btnId);
     },
     false
   );
@@ -15,5 +14,5 @@ for (let i = 0; i < listBtn.length; i++) {
 searchBtn.addEventListener("click", (event) => {
   event.preventDefault();
   const searchString = document.getElementById("search").value;
-  window.location.replace(`/search/${searchString}`)
-})
+  window.location.replace(`/search/${searchString}`);
+});

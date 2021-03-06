@@ -27,23 +27,24 @@ router.post('/api/signUp', async (req, res) => {
     where: { username },
     defaults: { password },
   });
+  res.clearCookie('access_token');
   res.json({ isCreated }).end();
 });
 
 router.post('/api/addRecipe', authenticateToken, async (req, res) => {
   const {
-    name, instructions, ingredients, isPublic,
+    title, instructions, ingredients, isPublic,
   } = req.body;
   const newRec = await db.Recipe.create({
-    title: name,
+    title,
     instructions,
     authorId: req.user.id,
     isPublic,
   });
 
   ingredients.forEach(async (ing) => {
-    const { ingName, quantity, measurement } = ing;
-    const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name: ingName } });
+    const { name, quantity, measurement } = ing;
+    const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
     newRec.addIngredient(ingredient, { through: { quantity, measurement } });
   });
 

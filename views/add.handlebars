@@ -21,53 +21,90 @@
 
 <div class="container">
   <div class="card-content center-align">
-    <h4>Add Recipe</h4>
+    <h2 class="add-recipe">Add Recipe</h2>
     <span class="card-title activator grey-text text-darken-4"> </span>
     <div id="instDiv">
-      <div class="input-field col s6">
-        {{!-- remove soup from input field --}}
-        <input value="" id="recipe-name" type="text" class="validate" />
-        <label class="active">Recipe Name</label>
-        <a id="addName" class="waves-effect waves-light btn-large yellow darken-2">Add Recipe name</a>
-      </div>
-      <div class="row">
-        <div class="input-field col s3">
-          <input value="" id="amount" type="text" class="validate" />
-          <label class="active">Quantity</label>
-        </div>
-        <div class="input-field col s3">
-          <input value="" id="measure" type="text" class="validate" />
-          <label class="active">Measurement</label>
-        </div>
-        <div class="input-field col s6">
-          <input value="" id="ingredient" type="text" class="validate" />
-          <label class="active">Ingredient</label>
-        </div>
-        <a id="addIngredient" class="waves-effect waves-light btn-large yellow darken-2">Add Ingredient</a>
 
-      </div>
-      <div class=" center-align">
-        <div class="input-field col s6 center-align">
-          <input value="" id="instruction" type="text" class="validate" />
-          <label class="active">Instruction</label>
-          <a id="addInstruction" class="waves-effect waves-light btn-large yellow darken-2">Add Instruction</a>
-        </div>
-      </div>
-    </div>
+      <div class="input-field col s6"> <!-- input fields -->
+        <div class="row"> <!--recipe name input-field-->
 
-    <div class="row ">
+          <div class="input-field col s9">
+            <input value="" id="recipe-name" type="text" class="validate" />
+            <label class="active">Recipe Name</label>
+          </div>
+
+          <div class="col s3"> <!--button-->
+          <a id="addName" class="waves-effect waves-light btn-large yellow darken-2">Add Recipe name</a>
+          </div> <!--button-->
+
+        </div> <!--row-->
+      </div> <!--recipe name input-field-->
+
+      <div class="input-field col s6"> <!-- ingredient input-field col -->
+        <div class="row"> <!-- ingredient input-field row -->
+
+            <div class="input-field col s2">
+              <input value="" id="amount" type="text" class="validate" />
+              <label class="active">Quantity</label>
+            </div>
+
+            <div class="input-field col s2">
+              <input value="" id="measure" type="text" class="validate" />
+              <label class="active">Measurement</label>
+            </div>
+
+            <div class="input-field col s5">
+              <input value="" id="ingredient" type="text" class="validate" />
+              <label class="active">Ingredient</label>
+            </div>
+
+            <div class="col s3"> <!--button-->
+            <a id="addIngredient" class="waves-effect waves-light btn-large yellow darken-2">Add Ingredient</a>
+            </div> <!--button-->
+        </div> <!-- ingredient input-field row -->
+      </div> <!-- ingredient input-field col -->
+
+      <div class="input-field col s6"> <!-- instruction input field col -->
+        <div class="row"> <!-- instruction input field row -->
+
+          <div class="input-field col s9">
+            <input value="" id="instruction" type="text" class="validate" />
+            <label class="active">Instruction</label>
+          </div>
+
+          <div class="col s3">
+            <a id="addInstruction" class="waves-effect waves-light btn-large yellow darken-2">Add Instruction</a>
+          </div>
+
+        </div> <!-- instruction input field row -->
+      </div> <!-- instruction input field col -->
+
+
+
+    </div> <!-- instDiv -->
+
+  <div id="recipeCard" class="hide new-recipe s12"> <!--recipe-card-->
+
+    <div class="row "> <!-- recipe-card-row-->
       <h3 id="recipeName"></h3>
-      <div class="col s6 center-align">
-        <ul id="listIng">
-          <h4 class="card-content center-align">Ingredients</h4>
-        </ul>
-      </div>
-      <div class="col s6 center-align">
-        <ul id="listInst">
-          <h4 class="card-content center-align">Instructions</h4>
-        </ul>
-      </div>
-    </div>
+      <div class="recipe-details">
+
+        <div class="col s6 center-align add-ing"> <!-- ingredients -->
+          <ul id="listIng">
+            <h4 class="card-content center-align">Ingredients</h4>
+          </ul>
+        </div> <!-- ingredients -->
+
+        <div class="col s6 center-align add-inst">
+          <ul id="listInst">
+            <h4 class="card-content center-align">Instructions</h4>
+          </ul>
+        </div>
+
+      </div> <!-- recipe-details -->
+    </div> <!--row-->
+  </div> <!--recipe-card-->
+
     <div class="row">
       <p>
         <label>

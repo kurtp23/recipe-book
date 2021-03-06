@@ -9,6 +9,7 @@ const rName = document.querySelector('#recipe-name');
 const rInst = document.querySelector('#instruction');
 const listIng = document.getElementById('listIng');
 const listInst = document.getElementById('listInst');
+const recCard = document.getElementById('recipeCard');
 const addName = document.getElementById('addName');
 const recName = document.getElementById('recipeName');
 const amount = document.getElementById('amount');
@@ -23,6 +24,10 @@ addName.addEventListener('click', (event) => {
   recName.textContent = rName.value;
   recipeName = rName.value;
   rName.value = '';
+
+  if (recCard.classList.contains('hide')) {
+    recCard.classList.remove('hide').classList.add('show');
+  }
 });
 
 addInst.addEventListener('click', (event) => {
@@ -33,6 +38,10 @@ addInst.addEventListener('click', (event) => {
   li.textContent = rInst.value;
   listInst.append(li);
   rInst.value = '';
+
+  if (recCard.classList.contains('hide')) {
+    recCard.classList.remove('hide').classList.add('show');
+  }
 });
 
 addIng.addEventListener('click', (event) => {
@@ -50,6 +59,10 @@ addIng.addEventListener('click', (event) => {
   amount.value = '';
   measure.value = '';
   rIng.value = '';
+
+  if (recCard.classList.contains('hide')) {
+    recCard.classList.remove('hide').classList.add('show');
+  }
 });
 
 save.addEventListener('click', (event) => {

@@ -1,3 +1,7 @@
+.container {
+    padding-bottom: 5rem;
+}
+
 .add-recipe {
     margin: 3rem;
 }
@@ -8,4 +12,12 @@
 
 .show {
     display: block; 
+}
+
+#recipeCard{
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px #888888;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    padding: 4rem;
 }

@@ -1,5 +1,7 @@
 const listBtn = document.querySelectorAll('.collection-item');
 const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('search');
+
 for (let i = 0; i < listBtn.length; i++) {
   listBtn[i].addEventListener(
     'click',
@@ -13,8 +15,16 @@ for (let i = 0; i < listBtn.length; i++) {
 
 searchBtn.addEventListener('click', (event) => {
   event.preventDefault();
-  const searchString = document.getElementById('search').value;
+  const searchString = searchInput.value;
   window.location.replace(`/search/${searchString}`);
+});
+
+searchInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    const searchString = searchInput.value;
+    window.location.replace(`/search/${searchString}`);
+  }
 });
 
 // Print recipe functionality

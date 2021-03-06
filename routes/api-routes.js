@@ -44,9 +44,6 @@ router.post('/api/addRecipe', authenticateToken, async (req, res) => {
 
   ingredients.forEach(async (ing) => {
     const { name, quantity, measurement } = ing;
-    console.log(`name: ${name}`)
-    console.log(`quantity: ${quantity}`)
-    console.log(`measurement: ${measurement}`)
     const [ingredient, ingCreated] = await db.Ingredient.findOrCreate({ where: { name } });
     newRec.addIngredient(ingredient, { through: { quantity, measurement } });
   });

@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     isPublic: {
-        type: DataTypes.BOOLEAN,
-    }
+      type: DataTypes.BOOLEAN,
+    },
   });
   Recipe.associate = (db) => {
     Recipe.belongsToMany(db.Ingredient, { through: db.RecIng });

@@ -13,11 +13,12 @@
     },
     "rules": {
         "no-console": "warn",
-        "no-unused-vars": "warn",
-        "radix": "warn",
+        "no-unused-vars": "off",
+        "radix": "off",
         "object-shorthand": "warn",
-        "consistent-return": "warn",
-        "no-throw-literal": "warn",
-        "prefer-const": "warn"
+        "consistent-return": "off",
+        "no-throw-literal": "off",
+        "prefer-const": "warn",
+        "no-plusplus": "off"
     }
 }

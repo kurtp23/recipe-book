@@ -1,16 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { privateKey } = require('../config/auth.json');
 const db = require('../models');
-(async() => {
-await db.User.findOrCreate({
-  where: {
-    username: 'User1',
-  },
-  defaults: {
-    password: 'password',
-  },
-});
-})();
 
 const validateLogin = async ({ username, password }) => {
   const user = await db.User.findOne({

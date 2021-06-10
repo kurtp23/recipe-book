@@ -3,7 +3,8 @@
 
   ## Description
 
-  An online recipe book to view sand save your favorite recipes.
+  An online recipe book to view and save your favorite recipes. This application allows a user to create an account, add recipes, view recipes, search stored recipes and print the recipe. This is a Heroku app built using Node.js, Express, Handlebars, Sequelize, Passport and Materialize.
+
 
   ## Table of Contents
 
